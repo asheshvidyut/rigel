@@ -1,9 +1,10 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import "../css/rightpanel.scss";
 
 class RightPanel extends Component {
   render() {
-    return <div>RightPanel</div>;
+    return <div className="RightPanel"></div>;
   }
 }
 
