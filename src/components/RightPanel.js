@@ -1,0 +1,18 @@
+import { Component } from "react";
+import { connect } from "react-redux";
+
+class RightPanel extends Component {
+  render() {
+    return <div>RightPanel</div>;
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RightPanel);
