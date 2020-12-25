@@ -6,8 +6,8 @@ export const SHAPES = {
 
 export const SHAPES_CONFIG = {
   ELLIPSE: {
-    x: 50,
-    y: 100,
+    x: 80,
+    y: 150,
     width: 100,
     height: 100,
     fill: "gray",

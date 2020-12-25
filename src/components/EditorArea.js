@@ -9,10 +9,6 @@ import RCircle from "./shapes/Circle";
 import RLine from "./shapes/Line";
 
 class EditorArea extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Stage

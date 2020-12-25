@@ -18,9 +18,6 @@ import {
 import { SHAPES } from "../constants";
 
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Navbar expand="md" bg="dark" variant="dark" fixed="top">
