@@ -6,6 +6,7 @@ import { SHAPES } from "../constants";
 import Rectangle from "./shapes/Rectangle";
 import * as editorActionTypes from "../store/actions/editor";
 import RCircle from "./shapes/Circle";
+import RLine from "./shapes/Line";
 
 class EditorArea extends Component {
   constructor(props) {
@@ -40,6 +41,20 @@ class EditorArea extends Component {
               case SHAPES.ELLIPSE:
                 return (
                   <RCircle
+                    key={shape.id}
+                    shapeProps={shape}
+                    isSelected={shape.id === this.props.selectedId}
+                    onSelect={() => {
+                      this.props.setSelectedShape(shape.id);
+                    }}
+                    onChange={(newAttrs) =>
+                      this.props.updateLayers(shape.id, newAttrs)
+                    }
+                  />
+                );
+              case SHAPES.LINE:
+                return (
+                  <RLine
                     key={shape.id}
                     shapeProps={shape}
                     isSelected={shape.id === this.props.selectedId}
