@@ -5,6 +5,7 @@ import { Layer, Stage } from "react-konva";
 import { SHAPES } from "../constants";
 import Rectangle from "./shapes/Rectangle";
 import * as editorActionTypes from "../store/actions/editor";
+import RCircle from "./shapes/Circle";
 
 class EditorArea extends Component {
   constructor(props) {
@@ -37,7 +38,19 @@ class EditorArea extends Component {
                   />
                 );
               case SHAPES.ELLIPSE:
-                return null;
+                return (
+                  <RCircle
+                    key={shape.id}
+                    shapeProps={shape}
+                    isSelected={shape.id === this.props.selectedId}
+                    onSelect={() => {
+                      this.props.setSelectedShape(shape.id);
+                    }}
+                    onChange={(newAttrs) =>
+                      this.props.updateLayers(shape.id, newAttrs)
+                    }
+                  />
+                );
               default:
                 return null;
             }
