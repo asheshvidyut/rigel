@@ -1,0 +1,5 @@
+export const SHAPES = {
+  ELLIPSE: "ELLIPSE",
+  RECTANGLE: "RECTANGLE",
+  LINE: "LINE",
+};

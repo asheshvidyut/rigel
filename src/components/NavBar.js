@@ -1,7 +1,21 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import "../css/navbar.scss";
-import { Button, ButtonGroup, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import * as layerActionTypes from "../store/actions/layer";
+import {
+  AiOutlineMinus,
+  AiOutlineStar,
+  BiCircle,
+  BiImage,
+  BiRectangle,
+  BsArrowUpRight,
+  BsTriangle,
+  FaPencilAlt,
+  FaPenFancy,
+  MdTextFields,
+} from "react-icons/all";
+import { SHAPES } from "../constants";
 
 class NavBar extends Component {
   constructor(props) {
@@ -12,7 +26,7 @@ class NavBar extends Component {
       <Navbar expand="md" bg="dark" variant="dark" fixed="top">
         <Navbar.Brand href="https://www.rigel.com">The Rigel</Navbar.Brand>
         <Nav className="mr-auto">
-          <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+          <NavDropdown title="File" id="collasible-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">
               Another action
@@ -25,11 +39,36 @@ class NavBar extends Component {
           </NavDropdown>
         </Nav>
         <Nav>
-          <ButtonGroup aria-label="Basic example">
-            <Button variant="secondary">Left</Button>
-            <Button variant="secondary">Middle</Button>
-            <Button variant="secondary">Right</Button>
-          </ButtonGroup>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.ELLIPSE)}>
+            <BiCircle />
+          </Nav.Link>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.LINE)}>
+            <AiOutlineMinus />
+          </Nav.Link>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.RECTANGLE)}>
+            <BiRectangle />
+          </Nav.Link>
+          <Nav.Link>
+            <BsArrowUpRight />
+          </Nav.Link>
+          <Nav.Link>
+            <BsTriangle />
+          </Nav.Link>
+          <Nav.Link>
+            <AiOutlineStar />
+          </Nav.Link>
+          <Nav.Link>
+            <BiImage />
+          </Nav.Link>
+          <Nav.Link>
+            <FaPenFancy />
+          </Nav.Link>
+          <Nav.Link>
+            <FaPencilAlt />
+          </Nav.Link>
+          <Nav.Link>
+            <MdTextFields />
+          </Nav.Link>
         </Nav>
       </Navbar>
     );
@@ -41,7 +80,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    addShape: (shape) =>
+      dispatch({ type: layerActionTypes.ADD_SHAPE, shape: shape }),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

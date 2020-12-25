@@ -1,8 +1,10 @@
-const initialState = {
-  layers: [],
-};
-const reducer = (state = initialState, action) => {
-  return initialState;
-};
+import { combineReducers } from "redux";
+import editor from "./editor";
+import layer from "./layer";
+import design from "./design";
 
-export default reducer;
+export default combineReducers({
+  layer: layer,
+  editor: editor,
+  design: design,
+});

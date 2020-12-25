@@ -1,27 +1,75 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "../css/editorarea.scss";
+import { Layer, Stage } from "react-konva";
+import { SHAPES } from "../constants";
+import Rectangle from "./shapes/Rectangle";
+import * as editorActionTypes from "../store/actions/editor";
+import * as layerActionTypes from "../store/actions/layer";
 
 class EditorArea extends Component {
   constructor(props) {
     super(props);
-    this.editorRef = React.createRef();
   }
+
   render() {
     return (
-      <div className="EditorArea">
-        <canvas id="editor" ref={this.editorRef} />
-      </div>
+      <Stage
+        width={1000}
+        height={1000}
+        id="editor"
+        className="crosshair EditorArea"
+      >
+        <Layer>
+          {this.props.layers.map((shape, i) => {
+            switch (shape.type) {
+              case SHAPES.RECTANGLE:
+                return (
+                  <Rectangle
+                    key={shape.id}
+                    shapeProps={shape}
+                    isSelected={shape.id === this.props.selectedId}
+                    onSelect={() => {
+                      this.props.setSelectedShape(shape.id);
+                    }}
+                    onChange={(newAttrs) =>
+                      this.props.updateLayers(shape.id, newAttrs)
+                    }
+                  />
+                );
+              case SHAPES.ELLIPSE:
+                return null;
+              default:
+                return null;
+            }
+          })}
+        </Layer>
+      </Stage>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    selectedId: state.editor.selectedId,
+    layers: state.layer || [],
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    setSelectedShape: (shapeId) =>
+      dispatch({
+        type: editorActionTypes.SET_SELECTED_SHAPE_ID,
+        selectedId: shapeId,
+      }),
+    updateLayers: (shapeId, newAttrs) =>
+      dispatch({
+        type: layerActionTypes.UPDATE_SHAPE,
+        id: shapeId,
+        newAttrs: newAttrs,
+      }),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorArea);
