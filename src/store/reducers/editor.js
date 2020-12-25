@@ -26,7 +26,6 @@ export default function editor(state = {}, action) {
         layers: layers,
       };
     case actionTypes.UPDATE_SHAPE:
-      console.log(action.newAttrs);
       let stateClone = [...state.layers];
       stateClone.splice(action.id, 1, action.newAttrs);
       return { ...state, layers: stateClone };
