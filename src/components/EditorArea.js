@@ -5,7 +5,6 @@ import { Layer, Stage } from "react-konva";
 import { SHAPES } from "../constants";
 import Rectangle from "./shapes/Rectangle";
 import * as editorActionTypes from "../store/actions/editor";
-import * as layerActionTypes from "../store/actions/layer";
 
 class EditorArea extends Component {
   constructor(props) {
@@ -52,7 +51,7 @@ class EditorArea extends Component {
 const mapStateToProps = (state) => {
   return {
     selectedId: state.editor.selectedId,
-    layers: state.layer || [],
+    layers: state.editor.layers || [],
   };
 };
 
@@ -65,7 +64,7 @@ const mapDispatchToProps = (dispatch) => {
       }),
     updateLayers: (shapeId, newAttrs) =>
       dispatch({
-        type: layerActionTypes.UPDATE_SHAPE,
+        type: editorActionTypes.UPDATE_SHAPE,
         id: shapeId,
         newAttrs: newAttrs,
       }),

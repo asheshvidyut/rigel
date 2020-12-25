@@ -2,7 +2,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import "../css/navbar.scss";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-import * as layerActionTypes from "../store/actions/layer";
+import * as editorActionTypes from "../store/actions/editor";
 import {
   AiOutlineMinus,
   AiOutlineStar,
@@ -81,8 +81,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addShape: (shape) =>
-      dispatch({ type: layerActionTypes.ADD_SHAPE, shape: shape }),
+    addShape: (shape) => {
+      dispatch({ type: editorActionTypes.ADD_SHAPE, shape: shape });
+      dispatch({ type: editorActionTypes.UPDATE_SELECTED_SHAPE_ID });
+    },
   };
 };
 
