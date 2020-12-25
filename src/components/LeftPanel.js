@@ -3,12 +3,16 @@ import { connect } from "react-redux";
 import "../css/leftpanel.scss";
 import * as editorActionTypes from "../store/actions/editor";
 import ListGroup from "react-bootstrap/ListGroup";
+import Badge from "react-bootstrap/Badge";
 
 class LeftPanel extends Component {
   render() {
     return (
       <div className="LeftPanel">
-        <ListGroup>
+        <Badge pill variant="info">
+          Layers
+        </Badge>
+        <ListGroup variant="flush">
           {this.props.layers.map((shape) => {
             return (
               <ListGroup.Item

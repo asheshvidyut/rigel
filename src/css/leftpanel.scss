@@ -2,4 +2,11 @@
 .LeftPanel {
   background-color: $panel-bg;
   height: 100%;
+  text-align: center;
+  font-size: 12px !important;
+  .badge.badge-pill.badge-info {
+    width: 100%;
+    font-size: 16px;
+    border-radius: 0;
+  }
 }
