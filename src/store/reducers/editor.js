@@ -49,6 +49,8 @@ export default function editor(state = {}, action) {
       return { ...state, selectedPencil: action.val };
     case actionTypes.SET_EDITOR_SCALE:
       return { ...state, scale: action.val };
+    case actionTypes.SET_URI:
+      return { ...state, uri: action.val };
     case actionTypes.PUT_TO_TOP:
       let layersClone = [...state.layers];
       let selectedLayer = layersClone.splice(action.shapeId, 1)[0];

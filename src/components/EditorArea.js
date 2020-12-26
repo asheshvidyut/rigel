@@ -92,6 +92,7 @@ class EditorArea extends Component {
         onMouseDown={(e) => this.handleMouseDown(e)}
         onMouseMove={(e) => this.handleMouseMove(e)}
         onMouseUp={(e) => this.props.setIsDrawing(false)}
+        onMouseOut={() => this.props.setUri(this.stageRef.current.toDataURL())}
         onWheel={this.handleWheel}
         className="EditorArea"
       >
@@ -334,6 +335,12 @@ const mapDispatchToProps = (dispatch) => {
     setEditorScale: (val) => {
       dispatch({
         type: editorActionTypes.SET_EDITOR_SCALE,
+        val: val,
+      });
+    },
+    setUri: (val) => {
+      dispatch({
+        type: editorActionTypes.SET_URI,
         val: val,
       });
     },

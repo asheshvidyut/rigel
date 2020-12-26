@@ -24,6 +24,18 @@ class NavBar extends Component {
     super(props);
     this.inputFileRef = React.createRef();
   }
+  handleExport = () => {
+    function downloadURI(uri, name) {
+      let link = document.createElement("a");
+      link.download = name;
+      link.href = uri;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    downloadURI(this.props.uri, "stage.png");
+  };
+
   render() {
     return (
       <Navbar expand="md" bg="dark" variant="dark" fixed="top">
@@ -122,7 +134,7 @@ class NavBar extends Component {
             })}
           </NavDropdown>
         </Nav>
-        <Nav className="mr-auto">
+        <Nav onClick={() => this.handleExport()} className="mr-auto">
           <Nav.Link>Export</Nav.Link>
         </Nav>
         <Nav>
@@ -191,6 +203,7 @@ class NavBar extends Component {
 const mapStateToProps = (state) => {
   return {
     selectedPencil: state.editor.selectedPencil,
+    uri: state.editor.uri,
   };
 };
 
