@@ -41,6 +41,6 @@ export const SHAPES_CONFIG = {
     strokeWidth: 5,
     y: 100,
     sides: 3,
-    radius: 100,
+    radius: 70,
   },
 };
