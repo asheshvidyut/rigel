@@ -22,7 +22,7 @@ let RLine = ({
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected, shapeProps]);
+  }, [isSelected, shapeProps.scaleX, shapeProps.scaleY, shapeProps.rotation]);
 
   const [shadowBlur, setShadowBlur] = useState(0);
 

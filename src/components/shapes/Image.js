@@ -28,7 +28,13 @@ let RImage = ({
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected, imageSrc, shapeProps]);
+  }, [
+    isSelected,
+    imageSrc,
+    shapeProps.scaleX,
+    shapeProps.scaleY,
+    shapeProps.rotation,
+  ]);
 
   const [shadowBlur, setShadowBlur] = useState(0);
 
