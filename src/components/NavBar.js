@@ -214,7 +214,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: editorActionTypes.ADD_SHAPE,
         shape: SHAPES.RECTANGLE,
-        config: { ...config, fill: "white" },
+        config: { ...config, fill: "white", canBeTransformed: false },
       });
     },
     setEditorScale: (val) => {

@@ -26,7 +26,7 @@ class LeftPanel extends Component {
                 onClick={() => this.props.setSelectedShape(shape.id)}
               >
                 <div className="LayerInfo">
-                  <span>{shape.type}</span>
+                  <span>{shape.displayName || shape.type}</span>
                   <div className="LayerActions">
                     <span>
                       {shape.display && (

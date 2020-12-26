@@ -14,6 +14,9 @@ let Rectangle = ({
   const trRef = React.useRef();
 
   React.useEffect(() => {
+    if (!shapeProps.canBeTransformed) {
+      return;
+    }
     shapeRef.current.rotation(shapeProps.rotation);
     if (isSelected) {
       // we need to attach transformer manually
@@ -52,8 +55,16 @@ let Rectangle = ({
             y: e.target.y(),
           });
         }}
-        onTransformStart={() => toggleHover(false)}
+        onTransformStart={() => {
+          if (!shapeProps.canBeTransformed) {
+            return;
+          }
+          toggleHover(false);
+        }}
         onTransformEnd={(e) => {
+          if (!shapeProps.canBeTransformed) {
+            return;
+          }
           toggleHover(true);
           // transformer is changing scale of the node
           // and NOT its width or height
@@ -79,18 +90,21 @@ let Rectangle = ({
           });
         }}
       />
-      {isSelected && (
-        <Transformer
-          ref={trRef}
-          boundBoxFunc={(oldBox, newBox) => {
-            // limit resize
-            if (newBox.width < 5 || newBox.height < 5) {
-              return oldBox;
-            }
-            return newBox;
-          }}
-        />
-      )}
+      {isSelected &&
+        (shapeProps.hasOwnProperty("canBeTransformed")
+          ? shapeProps.canBeTransformed
+          : true) && (
+          <Transformer
+            ref={trRef}
+            boundBoxFunc={(oldBox, newBox) => {
+              // limit resize
+              if (newBox.width < 5 || newBox.height < 5) {
+                return oldBox;
+              }
+              return newBox;
+            }}
+          />
+        )}
     </React.Fragment>
   );
 };
