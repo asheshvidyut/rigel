@@ -11,7 +11,16 @@ import RLine from "./shapes/Line";
 class EditorArea extends Component {
   render() {
     return (
-      <Stage width={1000} height={1000} id="editor" className="EditorArea">
+      <Stage
+        width={1000}
+        height={1000}
+        id="editor"
+        onClick={(e) => {
+          e.evt.stopPropagation();
+          this.props.setSelectedShape(-1);
+        }}
+        className="EditorArea"
+      >
         <Layer>
           {this.props.layers.map((shape, i) => {
             switch (shape.type) {
@@ -27,6 +36,7 @@ class EditorArea extends Component {
                     onChange={(newAttrs) =>
                       this.props.updateLayers(shape.id, newAttrs)
                     }
+                    setSelectedShape={this.props.setSelectedShape}
                   />
                 );
               case SHAPES.ELLIPSE:
@@ -41,6 +51,7 @@ class EditorArea extends Component {
                     onChange={(newAttrs) =>
                       this.props.updateLayers(shape.id, newAttrs)
                     }
+                    setSelectedShape={this.props.setSelectedShape}
                   />
                 );
               case SHAPES.LINE:
@@ -55,6 +66,7 @@ class EditorArea extends Component {
                     onChange={(newAttrs) =>
                       this.props.updateLayers(shape.id, newAttrs)
                     }
+                    setSelectedShape={this.props.setSelectedShape}
                   />
                 );
               default:

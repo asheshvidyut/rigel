@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { Circle, Line, Transformer } from "react-konva";
+import { Line, Transformer } from "react-konva";
 
-let RLine = ({ shapeProps, isSelected, onSelect, onChange }) => {
+let RLine = ({
+  shapeProps,
+  isSelected,
+  onSelect,
+  onChange,
+  setSelectedShape,
+}) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
 
@@ -23,7 +29,10 @@ let RLine = ({ shapeProps, isSelected, onSelect, onChange }) => {
         ref={shapeRef}
         {...shapeProps}
         draggable
-        onMouseEnter={() => setShadowBlur(10)}
+        onMouseEnter={() => {
+          setShadowBlur(10);
+          setSelectedShape(shapeProps.id);
+        }}
         onMouseLeave={() => setShadowBlur(0)}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"

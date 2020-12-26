@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Circle, Transformer } from "react-konva";
 
-let RCircle = ({ shapeProps, isSelected, onSelect, onChange }) => {
+let RCircle = ({
+  shapeProps,
+  isSelected,
+  onSelect,
+  onChange,
+  setSelectedShape,
+}) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
 
@@ -22,8 +28,13 @@ let RCircle = ({ shapeProps, isSelected, onSelect, onChange }) => {
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        onMouseEnter={() => setShadowBlur(10)}
-        onMouseLeave={() => setShadowBlur(0)}
+        onMouseEnter={() => {
+          setShadowBlur(10);
+          setSelectedShape(shapeProps.id);
+        }}
+        onMouseLeave={() => {
+          setShadowBlur(0);
+        }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"
         draggable
