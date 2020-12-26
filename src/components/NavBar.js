@@ -76,6 +76,7 @@ class NavBar extends Component {
           style={{ display: "none" }}
           id="fileItem"
           type="file"
+          onClick={(event) => (event.target.value = null)}
           onChange={(event) => {
             let imageSrc = URL.createObjectURL(event.target.files[0]);
             this.props.addShape(SHAPES.IMAGE, { src: imageSrc });
