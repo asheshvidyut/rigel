@@ -19,6 +19,7 @@ export default function editor(state = {}, action) {
           ...SHAPES_CONFIG[action.shape],
           id: (state.layers || []).length,
           type: action.shape,
+          options: action.options,
         },
       ];
       return {

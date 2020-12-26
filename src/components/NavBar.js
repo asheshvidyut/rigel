@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import "../css/navbar.scss";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
@@ -18,6 +18,10 @@ import {
 import { SHAPES } from "../constants";
 
 class NavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.inputFileRef = React.createRef();
+  }
   render() {
     return (
       <Navbar expand="md" bg="dark" variant="dark" fixed="top">
@@ -54,7 +58,7 @@ class NavBar extends Component {
           <Nav.Link onClick={() => this.props.addShape(SHAPES.STAR)}>
             <AiOutlineStar />
           </Nav.Link>
-          <Nav.Link>
+          <Nav.Link onClick={() => this.inputFileRef.current.click()}>
             <BiImage />
           </Nav.Link>
           <Nav.Link>
@@ -67,6 +71,16 @@ class NavBar extends Component {
             <MdTextFields />
           </Nav.Link>
         </Nav>
+        <input
+          ref={this.inputFileRef}
+          style={{ display: "none" }}
+          id="fileItem"
+          type="file"
+          onChange={(event) => {
+            let imageSrc = URL.createObjectURL(event.target.files[0]);
+            this.props.addShape(SHAPES.IMAGE, { src: imageSrc });
+          }}
+        />
       </Navbar>
     );
   }
@@ -78,8 +92,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addShape: (shape) => {
-      dispatch({ type: editorActionTypes.ADD_SHAPE, shape: shape });
+    addShape: (shape, options = {}) => {
+      dispatch({
+        type: editorActionTypes.ADD_SHAPE,
+        shape: shape,
+        options: options,
+      });
       dispatch({ type: editorActionTypes.UPDATE_SELECTED_SHAPE_ID });
     },
   };

@@ -10,6 +10,7 @@ import RLine from "./shapes/Line";
 import RArrow from "./shapes/Arrow";
 import RPolygon from "./shapes/Polygon";
 import RStar from "./shapes/Star";
+import RImage from "./shapes/Image";
 
 class EditorArea extends Component {
   render() {
@@ -105,6 +106,22 @@ class EditorArea extends Component {
               case SHAPES.STAR:
                 return (
                   <RStar
+                    key={shape.id}
+                    shapeProps={shape}
+                    isSelected={shape.id === this.props.selectedId}
+                    onSelect={() => {
+                      this.props.setSelectedShape(shape.id);
+                    }}
+                    onChange={(newAttrs) =>
+                      this.props.updateLayers(shape.id, newAttrs)
+                    }
+                    setSelectedShape={this.props.setSelectedShape}
+                  />
+                );
+              case SHAPES.IMAGE:
+                return (
+                  <RImage
+                    imageSrc={shape.options.src}
                     key={shape.id}
                     shapeProps={shape}
                     isSelected={shape.id === this.props.selectedId}

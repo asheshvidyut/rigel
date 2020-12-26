@@ -5,6 +5,7 @@ export const SHAPES = {
   ARROW: "ARROW",
   POLYGON: "POLYGON",
   STAR: "STAR",
+  IMAGE: "IMAGE",
 };
 
 export const SHAPES_CONFIG = {
