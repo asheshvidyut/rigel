@@ -28,8 +28,7 @@ class EditorArea extends Component {
   handleMouseDown = (e) => {
     if (this.props.selectedPencil) {
       this.props.setIsDrawing(true);
-      this.stageRef.current.scaleX(1);
-      this.stageRef.current.scaleY(1);
+      this.stageRef.current.scale({ x: 1, y: 1 });
       this.stageRef.current.position({ x: 0, y: 0 });
       this.stageRef.current.batchDraw();
       const pos = e.target.getStage().getPointerPosition();
@@ -39,9 +38,15 @@ class EditorArea extends Component {
 
   handleExport = () => {
     this.props.setSelectedShape(-1);
-    this.stageRef.current.scale({ x: 1, y: 1 });
     setTimeout(() => {
-      let uri = this.stageRef.current.toDataURL();
+      let uri = this.stageRef.current.toDataURL({
+        pixelRatio: 2,
+        quality: 1,
+        x: 0,
+        y: 0,
+        width: 2000,
+        height: 1000,
+      });
       function downloadURI(uri, name) {
         var link = document.createElement("a");
         link.download = name;
@@ -51,7 +56,7 @@ class EditorArea extends Component {
         document.body.removeChild(link);
       }
       downloadURI(uri, "design.png");
-    }, 500);
+    }, 1000);
   };
 
   handleMouseMove = (e) => {
