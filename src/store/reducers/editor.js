@@ -26,6 +26,16 @@ export default function editor(state = {}, action) {
         ...state,
         layers: layers,
       };
+    case actionTypes.DELETE_SHAPE:
+      let clone = [...state.layers];
+      clone.splice(action.shapeId, 1);
+      return {
+        ...state,
+        layers: clone.map((layer, index) => {
+          layer.id = index;
+          return layer;
+        }),
+      };
     case actionTypes.UPDATE_SHAPE:
       let stateClone = [...state.layers];
       stateClone.splice(action.id, 1, action.newAttrs);

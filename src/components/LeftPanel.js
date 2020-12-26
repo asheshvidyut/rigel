@@ -4,6 +4,11 @@ import "../css/leftpanel.scss";
 import * as editorActionTypes from "../store/actions/editor";
 import ListGroup from "react-bootstrap/ListGroup";
 import Badge from "react-bootstrap/Badge";
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  RiDeleteBin6Line,
+} from "react-icons/all";
 
 class LeftPanel extends Component {
   render() {
@@ -20,7 +25,38 @@ class LeftPanel extends Component {
                 variant={shape.id === this.props.selectedId ? "dark" : ""}
                 onClick={() => this.props.setSelectedShape(shape.id)}
               >
-                {shape.type}
+                <div className="LayerInfo">
+                  <span>{shape.type}</span>
+                  <div className="LayerActions">
+                    <span>
+                      {shape.display && (
+                        <AiOutlineEyeInvisible
+                          onClick={() =>
+                            this.props.updateShape(shape.id, {
+                              ...shape,
+                              display: false,
+                            })
+                          }
+                        />
+                      )}
+                      {!shape.display && (
+                        <AiOutlineEye
+                          onClick={() =>
+                            this.props.updateShape(shape.id, {
+                              ...shape,
+                              display: true,
+                            })
+                          }
+                        />
+                      )}
+                    </span>
+                    <span>
+                      <RiDeleteBin6Line
+                        onClick={() => this.props.deleteShape(shape.id)}
+                      />
+                    </span>
+                  </div>
+                </div>
               </ListGroup.Item>
             );
           })}
@@ -43,6 +79,17 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: editorActionTypes.SET_SELECTED_SHAPE_ID,
         selectedId: shapeId,
+      }),
+    deleteShape: (shapeId) =>
+      dispatch({
+        type: editorActionTypes.DELETE_SHAPE,
+        shapeId: shapeId,
+      }),
+    updateShape: (shapeId, newAttrs) =>
+      dispatch({
+        type: editorActionTypes.UPDATE_SHAPE,
+        id: shapeId,
+        newAttrs: newAttrs,
       }),
   };
 };

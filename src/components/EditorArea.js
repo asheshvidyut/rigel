@@ -26,118 +26,120 @@ class EditorArea extends Component {
         className="EditorArea"
       >
         <Layer>
-          {this.props.layers.map((shape, i) => {
-            switch (shape.type) {
-              case SHAPES.RECTANGLE:
-                return (
-                  <Rectangle
-                    key={shape.id}
-                    shapeProps={shape}
-                    isSelected={shape.id === this.props.selectedId}
-                    onSelect={() => {
-                      this.props.setSelectedShape(shape.id);
-                    }}
-                    onChange={(newAttrs) =>
-                      this.props.updateLayers(shape.id, newAttrs)
-                    }
-                    setSelectedShape={this.props.setSelectedShape}
-                  />
-                );
-              case SHAPES.ELLIPSE:
-                return (
-                  <RCircle
-                    key={shape.id}
-                    shapeProps={shape}
-                    isSelected={shape.id === this.props.selectedId}
-                    onSelect={() => {
-                      this.props.setSelectedShape(shape.id);
-                    }}
-                    onChange={(newAttrs) =>
-                      this.props.updateLayers(shape.id, newAttrs)
-                    }
-                    setSelectedShape={this.props.setSelectedShape}
-                  />
-                );
-              case SHAPES.LINE:
-                return (
-                  <RLine
-                    key={shape.id}
-                    shapeProps={shape}
-                    isSelected={shape.id === this.props.selectedId}
-                    onSelect={() => {
-                      this.props.setSelectedShape(shape.id);
-                    }}
-                    onChange={(newAttrs) =>
-                      this.props.updateLayers(shape.id, newAttrs)
-                    }
-                    setSelectedShape={this.props.setSelectedShape}
-                  />
-                );
-              case SHAPES.ARROW:
-                return (
-                  <RArrow
-                    key={shape.id}
-                    shapeProps={shape}
-                    isSelected={shape.id === this.props.selectedId}
-                    onSelect={() => {
-                      this.props.setSelectedShape(shape.id);
-                    }}
-                    onChange={(newAttrs) =>
-                      this.props.updateLayers(shape.id, newAttrs)
-                    }
-                    setSelectedShape={this.props.setSelectedShape}
-                  />
-                );
-              case SHAPES.POLYGON:
-                return (
-                  <RPolygon
-                    key={shape.id}
-                    shapeProps={shape}
-                    isSelected={shape.id === this.props.selectedId}
-                    onSelect={() => {
-                      this.props.setSelectedShape(shape.id);
-                    }}
-                    onChange={(newAttrs) =>
-                      this.props.updateLayers(shape.id, newAttrs)
-                    }
-                    setSelectedShape={this.props.setSelectedShape}
-                  />
-                );
-              case SHAPES.STAR:
-                return (
-                  <RStar
-                    key={shape.id}
-                    shapeProps={shape}
-                    isSelected={shape.id === this.props.selectedId}
-                    onSelect={() => {
-                      this.props.setSelectedShape(shape.id);
-                    }}
-                    onChange={(newAttrs) =>
-                      this.props.updateLayers(shape.id, newAttrs)
-                    }
-                    setSelectedShape={this.props.setSelectedShape}
-                  />
-                );
-              case SHAPES.IMAGE:
-                return (
-                  <RImage
-                    imageSrc={shape.options.src}
-                    key={shape.id}
-                    shapeProps={shape}
-                    isSelected={shape.id === this.props.selectedId}
-                    onSelect={() => {
-                      this.props.setSelectedShape(shape.id);
-                    }}
-                    onChange={(newAttrs) =>
-                      this.props.updateLayers(shape.id, newAttrs)
-                    }
-                    setSelectedShape={this.props.setSelectedShape}
-                  />
-                );
-              default:
-                return null;
-            }
-          })}
+          {this.props.layers
+            .filter((shape) => shape.display)
+            .map((shape, i) => {
+              switch (shape.type) {
+                case SHAPES.RECTANGLE:
+                  return (
+                    <Rectangle
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                    />
+                  );
+                case SHAPES.ELLIPSE:
+                  return (
+                    <RCircle
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                    />
+                  );
+                case SHAPES.LINE:
+                  return (
+                    <RLine
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                    />
+                  );
+                case SHAPES.ARROW:
+                  return (
+                    <RArrow
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                    />
+                  );
+                case SHAPES.POLYGON:
+                  return (
+                    <RPolygon
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                    />
+                  );
+                case SHAPES.STAR:
+                  return (
+                    <RStar
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                    />
+                  );
+                case SHAPES.IMAGE:
+                  return (
+                    <RImage
+                      imageSrc={shape.options.src}
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                    />
+                  );
+                default:
+                  return null;
+              }
+            })}
         </Layer>
       </Stage>
     );
@@ -158,7 +160,7 @@ const mapDispatchToProps = (dispatch) => {
         type: editorActionTypes.SET_SELECTED_SHAPE_ID,
         selectedId: shapeId,
       }),
-    updateLayers: (shapeId, newAttrs) =>
+    updateShape: (shapeId, newAttrs) =>
       dispatch({
         type: editorActionTypes.UPDATE_SHAPE,
         id: shapeId,

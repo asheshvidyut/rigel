@@ -15,6 +15,7 @@ export const SHAPES_CONFIG = {
     width: 100,
     height: 100,
     fill: "gray",
+    display: true,
   },
   RECTANGLE: {
     x: 50,
@@ -22,6 +23,7 @@ export const SHAPES_CONFIG = {
     width: 100,
     height: 100,
     fill: "gray",
+    display: true,
   },
   LINE: {
     x: 50,
@@ -29,6 +31,7 @@ export const SHAPES_CONFIG = {
     strokeWidth: 5,
     y: 100,
     points: [0, 100, 100, 0],
+    display: true,
   },
   ARROW: {
     x: 50,
@@ -36,6 +39,7 @@ export const SHAPES_CONFIG = {
     strokeWidth: 5,
     y: 100,
     points: [0, 100, 100, 0],
+    display: true,
   },
   POLYGON: {
     x: 50,
@@ -44,6 +48,7 @@ export const SHAPES_CONFIG = {
     y: 100,
     sides: 3,
     radius: 70,
+    display: true,
   },
   STAR: {
     x: 100,
@@ -54,5 +59,9 @@ export const SHAPES_CONFIG = {
     fill: "gray",
     stroke: "black",
     strokeWidth: 4,
+    display: true,
+  },
+  IMAGE: {
+    display: true,
   },
 };

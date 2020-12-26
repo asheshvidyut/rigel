@@ -2,7 +2,6 @@
 .LeftPanel {
   background-color: white;
   height: 100%;
-  text-align: center;
   font-size: 12px !important;
   .badge.badge-pill.badge-info {
     width: 100%;
@@ -12,5 +11,15 @@
   }
   .list-group-item {
     padding: 0.5rem;
+    .LayerInfo {
+      display: flex;
+      justify-content: space-between;
+      .LayerActions {
+        span {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+      }
+    }
   }
 }
