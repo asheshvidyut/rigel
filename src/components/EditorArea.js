@@ -48,7 +48,7 @@ class EditorArea extends Component {
                       selectOnHover={this.props.selectOnHover}
                     />
                   );
-                case SHAPES.ELLIPSE:
+                case SHAPES.CIRCLE:
                   return (
                     <RCircle
                       key={shape.id}

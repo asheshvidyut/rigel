@@ -40,7 +40,7 @@ class NavBar extends Component {
           </NavDropdown>
         </Nav>
         <Nav>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.ELLIPSE)}>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.CIRCLE)}>
             <BiCircle />
           </Nav.Link>
           <Nav.Link onClick={() => this.props.addShape(SHAPES.LINE)}>

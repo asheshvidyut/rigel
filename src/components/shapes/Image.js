@@ -63,6 +63,8 @@ let RImage = ({
           // but in the store we have only width and height
           // to match the data better we will reset scale on transform end
           const node = shapeRef.current;
+          const width = node.width();
+          const height = node.height();
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
 
@@ -74,8 +76,8 @@ let RImage = ({
             x: node.x(),
             y: node.y(),
             // set minimal value
-            width: Math.max(5, node.width() * scaleX),
-            height: Math.max(5, node.height() * scaleY),
+            width: Math.max(5, width * scaleX),
+            height: Math.max(5, height * scaleY),
           });
         }}
       />

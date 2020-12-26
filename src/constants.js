@@ -1,5 +1,5 @@
 export const SHAPES = {
-  ELLIPSE: "ELLIPSE",
+  CIRCLE: "CIRCLE",
   RECTANGLE: "RECTANGLE",
   LINE: "LINE",
   ARROW: "ARROW",
@@ -10,7 +10,7 @@ export const SHAPES = {
 };
 
 export const SHAPES_CONFIG = {
-  ELLIPSE: {
+  CIRCLE: {
     x: 80,
     y: 150,
     width: 100,
