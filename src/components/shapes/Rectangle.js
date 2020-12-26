@@ -1,5 +1,5 @@
-import React from "react";
-import { Rect, Transformer } from "react-konva";
+import React, { useState } from "react";
+import { Line, Rect, Transformer } from "react-konva";
 
 let Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
   const shapeRef = React.useRef();
@@ -13,6 +13,8 @@ let Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
     }
   }, [isSelected]);
 
+  const [shadowBlur, setShadowBlur] = useState(0);
+
   return (
     <React.Fragment>
       <Rect
@@ -21,6 +23,10 @@ let Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
         ref={shapeRef}
         {...shapeProps}
         draggable
+        onMouseEnter={() => setShadowBlur(10)}
+        onMouseLeave={() => setShadowBlur(0)}
+        shadowBlur={shadowBlur}
+        shadowColor="#0b8793"
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,

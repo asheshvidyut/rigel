@@ -11,12 +11,7 @@ import RLine from "./shapes/Line";
 class EditorArea extends Component {
   render() {
     return (
-      <Stage
-        width={1000}
-        height={1000}
-        id="editor"
-        className="crosshair EditorArea"
-      >
+      <Stage width={1000} height={1000} id="editor" className="EditorArea">
         <Layer>
           {this.props.layers.map((shape, i) => {
             switch (shape.type) {
