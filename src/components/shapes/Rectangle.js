@@ -49,7 +49,7 @@ let Rectangle = ({
         onMouseEnter={() => {
           if (selectOnHover) {
             setShadowBlur(10);
-            setSelectedShape(shapeProps.id);
+            if (!shapeProps.displayName) setSelectedShape(shapeProps.id);
           }
         }}
         onMouseLeave={() => {
