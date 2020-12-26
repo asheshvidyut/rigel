@@ -23,7 +23,13 @@ let Rectangle = ({
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected, shapeProps.scaleX, shapeProps.scaleY, shapeProps.rotation]);
+  }, [
+    isSelected,
+    shapeProps.scaleX,
+    shapeProps.scaleY,
+    shapeProps.rotation,
+    shapeProps.canBeTransformed,
+  ]);
 
   const [shadowBlur, setShadowBlur] = useState(0);
 
