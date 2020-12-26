@@ -14,7 +14,11 @@ let Rectangle = ({
   const trRef = React.useRef();
 
   React.useEffect(() => {
-    if (!shapeProps.canBeTransformed) {
+    if (
+      !(shapeProps.hasOwnProperty("canBeTransformed")
+        ? shapeProps.canBeTransformed
+        : true)
+    ) {
       return;
     }
     shapeRef.current.rotation(shapeProps.rotation);
@@ -62,13 +66,21 @@ let Rectangle = ({
           });
         }}
         onTransformStart={() => {
-          if (!shapeProps.canBeTransformed) {
+          if (
+            !(shapeProps.hasOwnProperty("canBeTransformed")
+              ? shapeProps.canBeTransformed
+              : true)
+          ) {
             return;
           }
           toggleHover(false);
         }}
         onTransformEnd={(e) => {
-          if (!shapeProps.canBeTransformed) {
+          if (
+            !(shapeProps.hasOwnProperty("canBeTransformed")
+              ? shapeProps.canBeTransformed
+              : true)
+          ) {
             return;
           }
           toggleHover(true);
