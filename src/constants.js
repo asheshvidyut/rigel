@@ -8,6 +8,7 @@ export const SHAPES = {
   IMAGE: "IMAGE",
   TEXT: "TEXT",
   RING: "RING",
+  ARC: "ARC",
 };
 
 export const SHAPES_CONFIG = {
@@ -101,6 +102,20 @@ export const SHAPES_CONFIG = {
   RING: {
     x: 80,
     y: 150,
+    innerRadius: 15,
+    outerRadius: 20,
+    width: 100,
+    height: 100,
+    fill: "gray",
+    display: true,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
+  },
+  ARC: {
+    x: 80,
+    y: 150,
+    angle: 79,
     innerRadius: 15,
     outerRadius: 20,
     width: 100,

@@ -11,6 +11,7 @@ import {
   BiRectangle,
   BsArrowUpRight,
   BsTriangle,
+  CgShapeHalfCircle,
   FaLifeRing,
   FaPencilAlt,
   FaPenFancy,
@@ -64,6 +65,9 @@ class NavBar extends Component {
           </Nav.Link>
           <Nav.Link onClick={() => this.props.addShape(SHAPES.RING)}>
             <FaLifeRing />
+          </Nav.Link>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.ARC)}>
+            <CgShapeHalfCircle />
           </Nav.Link>
           <Nav.Link>
             <FaPenFancy />

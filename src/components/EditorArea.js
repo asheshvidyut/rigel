@@ -13,6 +13,7 @@ import RStar from "./shapes/Star";
 import RImage from "./shapes/Image";
 import RText from "./shapes/Text";
 import RRing from "./shapes/Ring";
+import RArc from "./shapes/Arc";
 
 class EditorArea extends Component {
   render() {
@@ -172,6 +173,23 @@ class EditorArea extends Component {
                 case SHAPES.RING:
                   return (
                     <RRing
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
+                    />
+                  );
+                case SHAPES.ARC:
+                  return (
+                    <RArc
                       key={shape.id}
                       shapeProps={shape}
                       isSelected={shape.id === this.props.selectedId}
