@@ -17,6 +17,9 @@ export const SHAPES_CONFIG = {
     height: 100,
     fill: "gray",
     display: true,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
   },
   RECTANGLE: {
     x: 50,
@@ -25,6 +28,9 @@ export const SHAPES_CONFIG = {
     height: 100,
     fill: "gray",
     display: true,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
   },
   LINE: {
     x: 50,
@@ -33,6 +39,9 @@ export const SHAPES_CONFIG = {
     y: 100,
     points: [0, 100, 100, 0],
     display: true,
+    scaleX: 1,
+    scaleY: 1,
+    rotation: 0,
   },
   ARROW: {
     x: 50,
@@ -41,6 +50,9 @@ export const SHAPES_CONFIG = {
     y: 100,
     points: [0, 100, 100, 0],
     display: true,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
   },
   POLYGON: {
     x: 100,
@@ -50,6 +62,9 @@ export const SHAPES_CONFIG = {
     sides: 3,
     radius: 70,
     display: true,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
   },
   STAR: {
     x: 100,
@@ -61,9 +76,15 @@ export const SHAPES_CONFIG = {
     stroke: "black",
     strokeWidth: 4,
     display: true,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
   },
   IMAGE: {
     display: true,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
   },
   TEXT: {
     display: true,
@@ -72,5 +93,8 @@ export const SHAPES_CONFIG = {
     fontSize: 24,
     x: 100,
     y: 100,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
   },
 };

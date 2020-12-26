@@ -14,6 +14,7 @@ let Rectangle = ({
   const trRef = React.useRef();
 
   React.useEffect(() => {
+    shapeRef.current.rotation(shapeProps.rotation);
     if (isSelected) {
       // we need to attach transformer manually
       trRef.current.nodes([shapeRef.current]);
@@ -74,6 +75,7 @@ let Rectangle = ({
             // set minimal value
             width: Math.max(5, width * scaleX),
             height: Math.max(5, height * scaleY),
+            rotation: node.rotation(),
           });
         }}
       />

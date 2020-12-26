@@ -13,6 +13,9 @@ let RArrow = ({
   const trRef = React.useRef();
 
   React.useEffect(() => {
+    shapeRef.current.scaleX(shapeProps.scaleX);
+    shapeRef.current.scaleY(shapeProps.scaleY);
+    shapeRef.current.rotation(shapeProps.rotation);
     if (isSelected) {
       // we need to attach transformer manually
       trRef.current.nodes([shapeRef.current]);
@@ -52,8 +55,6 @@ let RArrow = ({
           // but in the store we have only width and height
           // to match the data better we will reset scale on transform end
           const node = shapeRef.current;
-          const width = node.width();
-          const height = node.height();
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
 
@@ -65,8 +66,9 @@ let RArrow = ({
             x: node.x(),
             y: node.y(),
             // set minimal value
-            width: Math.max(5, width * scaleX),
-            height: Math.max(5, height * scaleY),
+            rotation: node.rotation(),
+            scaleX: scaleX,
+            scaleY: scaleY,
           });
         }}
       />

@@ -22,6 +22,7 @@ let RImage = ({
     imageObj.addEventListener("load", () => {
       setImage(imageObj);
     });
+    shapeRef.current.rotation(shapeProps.rotation);
     if (isSelected) {
       // we need to attach transformer manually
       trRef.current.nodes([shapeRef.current]);
@@ -81,6 +82,7 @@ let RImage = ({
             x: node.x(),
             y: node.y(),
             // set minimal value
+            rotation: node.rotation(),
             width: Math.max(5, width * scaleX),
             height: Math.max(5, height * scaleY),
           });
