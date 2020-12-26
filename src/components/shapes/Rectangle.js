@@ -29,6 +29,7 @@ let Rectangle = ({
     }
   }, [
     isSelected,
+    shapeProps,
     shapeProps.scaleX,
     shapeProps.scaleY,
     shapeProps.rotation,
