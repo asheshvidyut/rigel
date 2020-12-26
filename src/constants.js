@@ -42,10 +42,10 @@ export const SHAPES_CONFIG = {
     display: true,
   },
   POLYGON: {
-    x: 50,
+    x: 100,
     stroke: "gray",
     strokeWidth: 5,
-    y: 100,
+    y: 200,
     sides: 3,
     radius: 70,
     display: true,
