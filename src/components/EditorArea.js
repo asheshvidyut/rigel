@@ -27,6 +27,10 @@ class EditorArea extends Component {
   handleMouseDown = (e) => {
     if (this.props.selectedPencil) {
       this.props.setIsDrawing(true);
+      this.stageRef.current.scaleX(1);
+      this.stageRef.current.scaleY(1);
+      this.stageRef.current.position({ x: 0, y: 0 });
+      this.stageRef.current.batchDraw();
       const pos = e.target.getStage().getPointerPosition();
       this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
     }
