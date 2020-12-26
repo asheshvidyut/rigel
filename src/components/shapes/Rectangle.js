@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Rect, Text, Transformer } from "react-konva";
+import { Rect, Transformer } from "react-konva";
 
 let Rectangle = ({
   shapeProps,
@@ -20,7 +20,7 @@ let Rectangle = ({
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected]);
+  }, [isSelected, shapeProps]);
 
   const [shadowBlur, setShadowBlur] = useState(0);
 

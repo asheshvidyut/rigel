@@ -20,7 +20,7 @@ let RText = ({
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected]);
+  }, [isSelected, shapeProps]);
 
   const [shadowBlur, setShadowBlur] = useState(0);
 

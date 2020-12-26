@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Circle, Transformer } from "react-konva";
+import { Ring, Transformer } from "react-konva";
 
-let RCircle = ({
+let RRing = ({
   shapeProps,
   isSelected,
   onSelect,
@@ -14,6 +14,9 @@ let RCircle = ({
   const trRef = React.useRef();
 
   React.useEffect(() => {
+    shapeRef.current.scaleX(shapeProps.scaleX);
+    shapeRef.current.scaleY(shapeProps.scaleY);
+    shapeRef.current.rotation(shapeProps.rotation);
     if (isSelected) {
       // we need to attach transformer manually
       trRef.current.nodes([shapeRef.current]);
@@ -25,11 +28,12 @@ let RCircle = ({
 
   return (
     <React.Fragment>
-      <Circle
+      <Ring
         onClick={onSelect}
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
+        draggable
         onMouseEnter={() => {
           if (selectOnHover) {
             setShadowBlur(10);
@@ -37,11 +41,12 @@ let RCircle = ({
           }
         }}
         onMouseLeave={() => {
-          if (selectOnHover) setShadowBlur(0);
+          if (selectOnHover) {
+            setShadowBlur(0);
+          }
         }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"
-        draggable
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,
@@ -49,7 +54,9 @@ let RCircle = ({
             y: e.target.y(),
           });
         }}
-        onTransformStart={() => toggleHover(false)}
+        onTransformStart={() => {
+          toggleHover(false);
+        }}
         onTransformEnd={(e) => {
           toggleHover(true);
           // transformer is changing scale of the node
@@ -57,10 +64,9 @@ let RCircle = ({
           // but in the store we have only width and height
           // to match the data better we will reset scale on transform end
           const node = shapeRef.current;
-          const width = node.width();
-          const height = node.height();
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
+          const rotation = node.rotation();
 
           // we will reset it back
           node.scaleX(1);
@@ -70,8 +76,9 @@ let RCircle = ({
             x: node.x(),
             y: node.y(),
             // set minimal value
-            width: Math.max(5, width * scaleX),
-            height: Math.max(5, height * scaleY),
+            scaleX: scaleX,
+            scaleY: scaleY,
+            rotation: rotation,
           });
         }}
       />
@@ -91,4 +98,4 @@ let RCircle = ({
   );
 };
 
-export default RCircle;
+export default RRing;

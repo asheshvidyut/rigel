@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Text, Transformer } from "react-konva";
+import { Image, Transformer } from "react-konva";
 
 let RImage = ({
   shapeProps,
@@ -28,7 +28,7 @@ let RImage = ({
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected, imageSrc]);
+  }, [isSelected, imageSrc, shapeProps]);
 
   const [shadowBlur, setShadowBlur] = useState(0);
 

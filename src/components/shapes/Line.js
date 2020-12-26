@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Line, Text, Transformer } from "react-konva";
+import { Line, Transformer } from "react-konva";
 
 let RLine = ({
   shapeProps,
@@ -22,7 +22,7 @@ let RLine = ({
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected]);
+  }, [isSelected, shapeProps]);
 
   const [shadowBlur, setShadowBlur] = useState(0);
 

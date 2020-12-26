@@ -11,6 +11,7 @@ import {
   BiRectangle,
   BsArrowUpRight,
   BsTriangle,
+  FaLifeRing,
   FaPencilAlt,
   FaPenFancy,
   MdTextFields,
@@ -60,6 +61,9 @@ class NavBar extends Component {
           </Nav.Link>
           <Nav.Link onClick={() => this.inputFileRef.current.click()}>
             <BiImage />
+          </Nav.Link>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.RING)}>
+            <FaLifeRing />
           </Nav.Link>
           <Nav.Link>
             <FaPenFancy />
