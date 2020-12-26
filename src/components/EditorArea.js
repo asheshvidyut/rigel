@@ -56,7 +56,7 @@ class EditorArea extends Component {
         document.body.removeChild(link);
       }
       downloadURI(uri, "design.png");
-    }, 1000);
+    }, 100);
   };
 
   handleMouseMove = (e) => {
