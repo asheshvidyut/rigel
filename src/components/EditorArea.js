@@ -16,6 +16,30 @@ import RRing from "./shapes/Ring";
 import RArc from "./shapes/Arc";
 
 class EditorArea extends Component {
+  handleMouseDown = (e) => {
+    if (this.props.selectedPencil) {
+      this.props.setIsDrawing(true);
+      const pos = e.target.getStage().getPointerPosition();
+      this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
+    }
+  };
+
+  handleMouseMove = (e) => {
+    if (this.props.selectedPencil) {
+      if (!this.props.isDrawing) return;
+      const stage = e.target.getStage();
+      const pos = stage.getPointerPosition();
+      if (this.props.layers.length) {
+        const lastLine = this.props.layers[this.props.layers.length - 1];
+        const newPoints = [...lastLine.points, pos.x, pos.y];
+        this.props.deleteShape(this.props.layers.length - 1);
+        this.props.addLine({ x: 0, y: 0, points: newPoints });
+      } else {
+        this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
+      }
+    }
+  };
+
   render() {
     return (
       <Stage
@@ -26,6 +50,9 @@ class EditorArea extends Component {
           e.evt.stopPropagation();
           this.props.setSelectedShape(-1);
         }}
+        onMouseDown={(e) => this.handleMouseDown(e)}
+        onMouseMove={(e) => this.handleMouseMove(e)}
+        onMouseUp={(e) => this.props.setIsDrawing(false)}
         className="EditorArea"
       >
         <Layer>
@@ -217,10 +244,12 @@ class EditorArea extends Component {
 const mapStateToProps = (state) => {
   return {
     selectedId: state.editor.selectedId,
+    isDrawing: state.editor.isDrawing,
     layers: state.editor.layers || [],
     selectOnHover: state.editor.hasOwnProperty("selectOnHover")
       ? state.editor.selectOnHover
       : true,
+    selectedPencil: state.editor.selectedPencil,
   };
 };
 
@@ -240,6 +269,24 @@ const mapDispatchToProps = (dispatch) => {
     toggleHover: (val) => {
       dispatch({
         type: editorActionTypes.DISABLE_HOVER,
+        val: val,
+      });
+    },
+    addLine: (options) => {
+      dispatch({
+        type: editorActionTypes.ADD_SHAPE,
+        shape: SHAPES.LINE,
+        config: options,
+      });
+    },
+    deleteShape: (shapeId) =>
+      dispatch({
+        type: editorActionTypes.DELETE_SHAPE,
+        shapeId: shapeId,
+      }),
+    setIsDrawing: (val) => {
+      dispatch({
+        type: editorActionTypes.SET_IS_DRAWING,
         val: val,
       });
     },

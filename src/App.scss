@@ -33,6 +33,10 @@ body {
   }
 }
 
+.active {
+  color: $primary !important;
+}
+
 /* BootStrap overrides */
 .bg-dark.bg-dark {
   background-color: black !important;

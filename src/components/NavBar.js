@@ -13,10 +13,10 @@ import {
   BsTriangle,
   CgShapeHalfCircle,
   FaLifeRing,
-  FaPencilAlt,
   FaPenFancy,
   MdTextFields,
 } from "react-icons/all";
+import { IconContext } from "react-icons";
 import { SHAPES } from "../constants";
 
 class NavBar extends Component {
@@ -69,11 +69,20 @@ class NavBar extends Component {
           <Nav.Link onClick={() => this.props.addShape(SHAPES.ARC)}>
             <CgShapeHalfCircle />
           </Nav.Link>
-          <Nav.Link>
-            <FaPenFancy />
-          </Nav.Link>
-          <Nav.Link>
-            <FaPencilAlt />
+          <Nav.Link
+            onClick={() =>
+              this.props.setSelectedPencil(!this.props.selectedPencil)
+            }
+          >
+            {this.props.selectedPencil ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <FaPenFancy />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <FaPenFancy />
+            )}
           </Nav.Link>
           <Nav.Link onClick={() => this.props.addShape(SHAPES.TEXT)}>
             <MdTextFields />
@@ -96,7 +105,9 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    selectedPencil: state.editor.selectedPencil,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -108,6 +119,12 @@ const mapDispatchToProps = (dispatch) => {
         options: options,
       });
       dispatch({ type: editorActionTypes.UPDATE_SELECTED_SHAPE_ID });
+    },
+    setSelectedPencil: (val) => {
+      dispatch({
+        type: editorActionTypes.SET_SELECTED_PENCIL,
+        val: val,
+      });
     },
   };
 };
