@@ -27,7 +27,9 @@ class NavBar extends Component {
   render() {
     return (
       <Navbar expand="md" bg="dark" variant="dark" fixed="top">
-        <Navbar.Brand href="https://www.rigel.com">The Rigel</Navbar.Brand>
+        <Navbar.Brand href="https://www.designerfact.com">
+          The Design Wine
+        </Navbar.Brand>
         <Nav className="mr-auto">
           <NavDropdown title="File" id="collasible-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
