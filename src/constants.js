@@ -127,3 +127,198 @@ export const SHAPES_CONFIG = {
     scaleY: 1,
   },
 };
+
+export const DEVICES = {
+  PHONES: [
+    {
+      displayName: "iPhone 11 Pro Max",
+      width: 414,
+      height: 896,
+    },
+    {
+      displayName: "iPhone 11 Pro / X",
+      width: 375,
+      height: 812,
+    },
+    {
+      displayName: "iPhone 8 Plus / X",
+      width: 414,
+      height: 736,
+    },
+    {
+      displayName: "iPhone 8",
+      width: 375,
+      height: 667,
+    },
+    {
+      displayName: "iPhone SE",
+      width: 320,
+      height: 568,
+    },
+    {
+      displayName: "Google Pixel 2",
+      width: 411,
+      height: 731,
+    },
+    {
+      displayName: "Google Pixel 2 XL",
+      width: 411,
+      height: 823,
+    },
+    {
+      displayName: "Andriod",
+      width: 360,
+      height: 640,
+    },
+  ],
+  TABLETS: [
+    {
+      displayName: "iPad Mini",
+      width: 768,
+      height: 1024,
+    },
+    {
+      displayName: "iPad Pro 11",
+      width: 834,
+      height: 1194,
+    },
+    {
+      displayName: "iPad Pro 12.9",
+      width: 1024,
+      height: 1366,
+    },
+    {
+      displayName: "Surface Pro 3",
+      width: 1440,
+      height: 990,
+    },
+    {
+      displayName: "Surface Pro 4",
+      width: 1368,
+      height: 912,
+    },
+  ],
+  DESKTOPS: [
+    {
+      displayName: "Desktop",
+      width: 1440,
+      height: 1024,
+    },
+    {
+      displayName: "MacBook",
+      width: 1152,
+      height: 700,
+    },
+    {
+      displayName: "MacBook Pro",
+      width: 1440,
+      height: 900,
+    },
+    {
+      displayName: "Surface Book",
+      width: 1500,
+      height: 1000,
+    },
+    {
+      displayName: "iMac",
+      width: 1280,
+      height: 720,
+    },
+  ],
+  WATCHES: [
+    {
+      displayName: "Apple Watch 44mm",
+      width: 184,
+      height: 224,
+    },
+    {
+      displayName: "Apple Watch 42mm",
+      width: 156,
+      height: 195,
+    },
+    {
+      displayName: "Apple Watch 40mm",
+      width: 162,
+      height: 197,
+    },
+    {
+      displayName: "Apple Watch 38mm",
+      width: 136,
+      height: 170,
+    },
+  ],
+  PAPERS: [
+    {
+      displayName: "A4",
+      width: 595,
+      height: 842,
+    },
+    {
+      displayName: "A5",
+      width: 420,
+      height: 595,
+    },
+    {
+      displayName: "A6",
+      width: 297,
+      height: 420,
+    },
+    {
+      displayName: "Letter",
+      width: 612,
+      height: 792,
+    },
+    {
+      displayName: "Tabloid",
+      width: 792,
+      height: 1224,
+    },
+  ],
+  SOCIALS: [
+    {
+      displayName: "Twitter Post",
+      width: 1012,
+      height: 506,
+    },
+    {
+      displayName: "Twitter Header",
+      width: 1500,
+      height: 500,
+    },
+    {
+      displayName: "Facebook Post",
+      width: 1200,
+      height: 630,
+    },
+    {
+      displayName: "Facebook Cover",
+      width: 820,
+      height: 312,
+    },
+    {
+      displayName: "Instagram Post",
+      width: 1080,
+      height: 1080,
+    },
+    {
+      displayName: "Instagram Story",
+      width: 1080,
+      height: 1920,
+    },
+    {
+      displayName: "Dribble Shot",
+      width: 400,
+      height: 300,
+    },
+    {
+      displayName: "Dribble Shot HD",
+      width: 800,
+      height: 600,
+    },
+    {
+      displayName: "LinkedIn Cover",
+      width: 1584,
+      height: 396,
+    },
+  ],
+};

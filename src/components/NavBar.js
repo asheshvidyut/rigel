@@ -17,7 +17,7 @@ import {
   MdTextFields,
 } from "react-icons/all";
 import { IconContext } from "react-icons";
-import { SHAPES } from "../constants";
+import { DEVICES, SHAPES } from "../constants";
 
 class NavBar extends Component {
   constructor(props) {
@@ -31,17 +31,99 @@ class NavBar extends Component {
           The Design Wine
         </Navbar.Brand>
         <Nav className="mr-auto">
-          <NavDropdown title="File" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
+          <NavDropdown title="Phones" id="collasible-nav-dropdown">
+            {DEVICES.PHONES.map((phone, index) => {
+              return (
+                <NavDropdown.Item
+                  key={index}
+                  onClick={() => {
+                    this.props.addDeviceBackground(phone);
+                    this.props.setEditorScale(0.5);
+                  }}
+                >
+                  {phone.displayName}
+                </NavDropdown.Item>
+              );
+            })}
           </NavDropdown>
+          <NavDropdown title="Tablets" id="collasible-nav-dropdown">
+            {DEVICES.TABLETS.map((tablet, index) => {
+              return (
+                <NavDropdown.Item
+                  key={index}
+                  onClick={() => {
+                    this.props.addDeviceBackground(tablet);
+                    this.props.setEditorScale(0.5);
+                  }}
+                >
+                  {tablet.displayName}
+                </NavDropdown.Item>
+              );
+            })}
+          </NavDropdown>
+          <NavDropdown title="Desktop" id="collasible-nav-dropdown">
+            {DEVICES.DESKTOPS.map((desktop, index) => {
+              return (
+                <NavDropdown.Item
+                  key={index}
+                  onClick={() => {
+                    this.props.addDeviceBackground(desktop);
+                    this.props.setEditorScale(0.5);
+                  }}
+                >
+                  {desktop.displayName}
+                </NavDropdown.Item>
+              );
+            })}
+          </NavDropdown>
+          <NavDropdown title="Watches" id="collasible-nav-dropdown">
+            {DEVICES.WATCHES.map((watch, index) => {
+              return (
+                <NavDropdown.Item
+                  key={index}
+                  onClick={() => {
+                    this.props.addDeviceBackground(watch);
+                    this.props.setEditorScale(0.5);
+                  }}
+                >
+                  {watch.displayName}
+                </NavDropdown.Item>
+              );
+            })}
+          </NavDropdown>
+          <NavDropdown title="Papers" id="collasible-nav-dropdown">
+            {DEVICES.PAPERS.map((paper, index) => {
+              return (
+                <NavDropdown.Item
+                  key={index}
+                  onClick={() => {
+                    this.props.addDeviceBackground(paper);
+                    this.props.setEditorScale(0.5);
+                  }}
+                >
+                  {paper.displayName}
+                </NavDropdown.Item>
+              );
+            })}
+          </NavDropdown>
+          <NavDropdown title="Social Media" id="collasible-nav-dropdown">
+            {DEVICES.SOCIALS.map((social, index) => {
+              return (
+                <NavDropdown.Item
+                  key={index}
+                  onClick={() => {
+                    this.props.addDeviceBackground(social);
+                    this.props.setEditorScale(0.5);
+                  }}
+                >
+                  {social.displayName}
+                </NavDropdown.Item>
+              );
+            })}
+          </NavDropdown>
+        </Nav>
+        <Nav className="mr-auto">
+          <Nav.Link>Export</Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link onClick={() => this.props.addShape(SHAPES.CIRCLE)}>
@@ -125,6 +207,19 @@ const mapDispatchToProps = (dispatch) => {
     setSelectedPencil: (val) => {
       dispatch({
         type: editorActionTypes.SET_SELECTED_PENCIL,
+        val: val,
+      });
+    },
+    addDeviceBackground: (config) => {
+      dispatch({
+        type: editorActionTypes.ADD_SHAPE,
+        shape: SHAPES.RECTANGLE,
+        config: { ...config, fill: "white" },
+      });
+    },
+    setEditorScale: (val) => {
+      dispatch({
+        type: editorActionTypes.SET_EDITOR_SCALE,
         val: val,
       });
     },

@@ -16,10 +16,6 @@ import RRing from "./shapes/Ring";
 import RArc from "./shapes/Arc";
 
 class EditorArea extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   handleMouseDown = (e) => {
     if (this.props.selectedPencil) {
       this.props.setIsDrawing(true);
@@ -48,20 +44,8 @@ class EditorArea extends Component {
     const scaleBy = 1.02;
     const stage = e.target.getStage();
     const oldScale = stage.scaleX();
-    const mousePointTo = {
-      x: stage.getPointerPosition().x / oldScale - stage.x() / oldScale,
-      y: stage.getPointerPosition().y / oldScale - stage.y() / oldScale,
-    };
-
     const newScale = e.evt.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy;
-
-    this.setState({
-      stageScale: newScale,
-      stageX:
-        -(mousePointTo.x - stage.getPointerPosition().x / newScale) * newScale,
-      stageY:
-        -(mousePointTo.y - stage.getPointerPosition().y / newScale) * newScale,
-    });
+    this.props.setEditorScale(newScale);
   };
 
   render() {
@@ -74,8 +58,8 @@ class EditorArea extends Component {
           e.evt.stopPropagation();
           this.props.setSelectedShape(-1);
         }}
-        scaleX={this.state.stageScale}
-        scaleY={this.state.stageScale}
+        scaleX={this.props.stageScale}
+        scaleY={this.props.stageScale}
         onMouseDown={(e) => this.handleMouseDown(e)}
         onMouseMove={(e) => this.handleMouseMove(e)}
         onMouseUp={(e) => this.props.setIsDrawing(false)}
@@ -277,6 +261,7 @@ const mapStateToProps = (state) => {
       ? state.editor.selectOnHover
       : true,
     selectedPencil: state.editor.selectedPencil,
+    stageScale: state.editor.scale,
   };
 };
 
@@ -314,6 +299,12 @@ const mapDispatchToProps = (dispatch) => {
     setIsDrawing: (val) => {
       dispatch({
         type: editorActionTypes.SET_IS_DRAWING,
+        val: val,
+      });
+    },
+    setEditorScale: (val) => {
+      dispatch({
+        type: editorActionTypes.SET_EDITOR_SCALE,
         val: val,
       });
     },
