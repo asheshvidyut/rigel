@@ -21,7 +21,7 @@ class EditorArea extends Component {
     this.stageRef = React.createRef();
     this.layerRef = React.createRef();
     this.stageHeight = 1000;
-    this.stageWidth = 1000;
+    this.stageWidth = 2000;
     this.scaleBy = 1.01;
   }
   handleMouseDown = (e) => {

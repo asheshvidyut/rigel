@@ -47,13 +47,13 @@ let Rectangle = ({
         {...shapeProps}
         draggable
         onMouseEnter={() => {
-          if (selectOnHover) {
+          if (selectOnHover && !shapeProps.displayName) {
             setShadowBlur(10);
-            if (!shapeProps.displayName) setSelectedShape(shapeProps.id);
+            setSelectedShape(shapeProps.id);
           }
         }}
         onMouseLeave={() => {
-          if (selectOnHover) {
+          if (selectOnHover && !shapeProps.displayName) {
             setShadowBlur(0);
           }
         }}
