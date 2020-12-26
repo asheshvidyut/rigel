@@ -2,7 +2,6 @@ import "./App.scss";
 import NavBar from "./components/NavBar";
 import LeftPanel from "./components/LeftPanel";
 import RightPanel from "./components/RightPanel";
-import Footer from "./components/Footer";
 import EditorArea from "./components/EditorArea";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -23,7 +22,6 @@ function App() {
           </Col>
         </Row>
       </Container>
-      <Footer />
     </div>
   );
 }
