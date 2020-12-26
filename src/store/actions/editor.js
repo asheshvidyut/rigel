@@ -8,4 +8,3 @@ export const SET_IS_DRAWING = "SET_IS_DRAWING";
 export const SET_SELECTED_PENCIL = "SET_SELECTED_PENCIL";
 export const SET_EDITOR_SCALE = "SET_EDITOR_SCALE";
 export const PUT_TO_TOP = "PUT_TO_TOP";
-export const SET_URI = "SET_URI";

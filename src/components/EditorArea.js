@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import "../css/editorarea.scss";
 import { Layer, Stage } from "react-konva";
@@ -14,6 +14,7 @@ import RImage from "./shapes/Image";
 import RText from "./shapes/Text";
 import RRing from "./shapes/Ring";
 import RArc from "./shapes/Arc";
+import { Button } from "react-bootstrap";
 
 class EditorArea extends Component {
   constructor(props) {
@@ -34,6 +35,23 @@ class EditorArea extends Component {
       const pos = e.target.getStage().getPointerPosition();
       this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
     }
+  };
+
+  handleExport = () => {
+    this.props.setSelectedShape(-1);
+    this.stageRef.current.scale({ x: 1, y: 1 });
+    setTimeout(() => {
+      let uri = this.stageRef.current.toDataURL();
+      function downloadURI(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      downloadURI(uri, "design.png");
+    }, 500);
   };
 
   handleMouseMove = (e) => {
@@ -79,205 +97,220 @@ class EditorArea extends Component {
 
   render() {
     return (
-      <Stage
-        width={this.stageWidth}
-        height={this.stageHeight}
-        ref={this.stageRef}
-        onClick={(e) => {
-          e.evt.stopPropagation();
-          this.props.setSelectedShape(-1);
-        }}
-        scaleX={this.props.stageScale}
-        scaleY={this.props.stageScale}
-        onMouseDown={(e) => this.handleMouseDown(e)}
-        onMouseMove={(e) => this.handleMouseMove(e)}
-        onMouseUp={(e) => this.props.setIsDrawing(false)}
-        onMouseOut={() => this.props.setUri(this.stageRef.current.toDataURL())}
-        onWheel={this.handleWheel}
-        className="EditorArea"
-      >
-        <Layer ref={this.layerRef}>
-          {this.props.layers
-            .filter((shape) => shape.display)
-            .map((shape, i) => {
-              switch (shape.type) {
-                case SHAPES.RECTANGLE:
-                  return (
-                    <Rectangle
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.CIRCLE:
-                  return (
-                    <RCircle
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.LINE:
-                  return (
-                    <RLine
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.ARROW:
-                  return (
-                    <RArrow
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.POLYGON:
-                  return (
-                    <RPolygon
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.STAR:
-                  return (
-                    <RStar
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.IMAGE:
-                  return (
-                    <RImage
-                      imageSrc={shape.options.src}
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.TEXT:
-                  return (
-                    <RText
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.RING:
-                  return (
-                    <RRing
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                case SHAPES.ARC:
-                  return (
-                    <RArc
-                      key={shape.id}
-                      shapeProps={shape}
-                      isSelected={shape.id === this.props.selectedId}
-                      onSelect={() => {
-                        this.props.setSelectedShape(shape.id);
-                      }}
-                      onChange={(newAttrs) =>
-                        this.props.updateShape(shape.id, newAttrs)
-                      }
-                      setSelectedShape={this.props.setSelectedShape}
-                      toggleHover={this.props.toggleHover}
-                      selectOnHover={this.props.selectOnHover}
-                    />
-                  );
-                default:
-                  return null;
-              }
-            })}
-        </Layer>
-      </Stage>
+      <Fragment>
+        <Button
+          size="lg"
+          style={{
+            float: "right",
+            zIndex: 10000000,
+            position: "fixed",
+            right: 0,
+            top: 5,
+          }}
+          variant="success"
+          onClick={() => this.handleExport()}
+        >
+          Export
+        </Button>
+        <Stage
+          width={this.stageWidth}
+          height={this.stageHeight}
+          ref={this.stageRef}
+          onClick={(e) => {
+            e.evt.stopPropagation();
+            this.props.setSelectedShape(-1);
+          }}
+          scaleX={this.props.stageScale}
+          scaleY={this.props.stageScale}
+          onMouseDown={(e) => this.handleMouseDown(e)}
+          onMouseMove={(e) => this.handleMouseMove(e)}
+          onMouseUp={(e) => this.props.setIsDrawing(false)}
+          onWheel={this.handleWheel}
+          className="EditorArea"
+        >
+          <Layer ref={this.layerRef}>
+            {this.props.layers
+              .filter((shape) => shape.display)
+              .map((shape, i) => {
+                switch (shape.type) {
+                  case SHAPES.RECTANGLE:
+                    return (
+                      <Rectangle
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.CIRCLE:
+                    return (
+                      <RCircle
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.LINE:
+                    return (
+                      <RLine
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.ARROW:
+                    return (
+                      <RArrow
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.POLYGON:
+                    return (
+                      <RPolygon
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.STAR:
+                    return (
+                      <RStar
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.IMAGE:
+                    return (
+                      <RImage
+                        imageSrc={shape.options.src}
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.TEXT:
+                    return (
+                      <RText
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.RING:
+                    return (
+                      <RRing
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  case SHAPES.ARC:
+                    return (
+                      <RArc
+                        key={shape.id}
+                        shapeProps={shape}
+                        isSelected={shape.id === this.props.selectedId}
+                        onSelect={() => {
+                          this.props.setSelectedShape(shape.id);
+                        }}
+                        onChange={(newAttrs) =>
+                          this.props.updateShape(shape.id, newAttrs)
+                        }
+                        setSelectedShape={this.props.setSelectedShape}
+                        toggleHover={this.props.toggleHover}
+                        selectOnHover={this.props.selectOnHover}
+                      />
+                    );
+                  default:
+                    return null;
+                }
+              })}
+          </Layer>
+        </Stage>
+      </Fragment>
     );
   }
 }
@@ -335,12 +368,6 @@ const mapDispatchToProps = (dispatch) => {
     setEditorScale: (val) => {
       dispatch({
         type: editorActionTypes.SET_EDITOR_SCALE,
-        val: val,
-      });
-    },
-    setUri: (val) => {
-      dispatch({
-        type: editorActionTypes.SET_URI,
         val: val,
       });
     },

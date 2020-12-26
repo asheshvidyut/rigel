@@ -24,17 +24,6 @@ class NavBar extends Component {
     super(props);
     this.inputFileRef = React.createRef();
   }
-  handleExport = () => {
-    function downloadURI(uri, name) {
-      let link = document.createElement("a");
-      link.download = name;
-      link.href = uri;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    downloadURI(this.props.uri, "stage.png");
-  };
 
   render() {
     return (
@@ -42,7 +31,7 @@ class NavBar extends Component {
         <Navbar.Brand href="https://www.designerfact.com">
           The Design Wine
         </Navbar.Brand>
-        <Nav className="mr-auto">
+        <Nav>
           <NavDropdown title="Phones" id="collasible-nav-dropdown">
             {DEVICES.PHONES.map((phone, index) => {
               return (
@@ -50,7 +39,6 @@ class NavBar extends Component {
                   key={index}
                   onClick={() => {
                     this.props.addDeviceBackground(phone);
-                    this.props.setEditorScale(1);
                   }}
                 >
                   {phone.displayName}
@@ -65,7 +53,6 @@ class NavBar extends Component {
                   key={index}
                   onClick={() => {
                     this.props.addDeviceBackground(tablet);
-                    this.props.setEditorScale(1);
                   }}
                 >
                   {tablet.displayName}
@@ -80,7 +67,6 @@ class NavBar extends Component {
                   key={index}
                   onClick={() => {
                     this.props.addDeviceBackground(desktop);
-                    this.props.setEditorScale(1);
                   }}
                 >
                   {desktop.displayName}
@@ -95,7 +81,6 @@ class NavBar extends Component {
                   key={index}
                   onClick={() => {
                     this.props.addDeviceBackground(watch);
-                    this.props.setEditorScale(1);
                   }}
                 >
                   {watch.displayName}
@@ -110,7 +95,6 @@ class NavBar extends Component {
                   key={index}
                   onClick={() => {
                     this.props.addDeviceBackground(paper);
-                    this.props.setEditorScale(1);
                   }}
                 >
                   {paper.displayName}
@@ -125,7 +109,6 @@ class NavBar extends Component {
                   key={index}
                   onClick={() => {
                     this.props.addDeviceBackground(social);
-                    this.props.setEditorScale(1);
                   }}
                 >
                   {social.displayName}
@@ -133,9 +116,6 @@ class NavBar extends Component {
               );
             })}
           </NavDropdown>
-        </Nav>
-        <Nav onClick={() => this.handleExport()} className="mr-auto">
-          <Nav.Link>Export</Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link onClick={() => this.props.addShape(SHAPES.CIRCLE)}>
