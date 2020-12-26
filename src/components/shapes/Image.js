@@ -9,6 +9,7 @@ let RImage = ({
   setSelectedShape,
   imageSrc,
   toggleHover,
+  selectOnHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -39,11 +40,15 @@ let RImage = ({
         ref={shapeRef}
         {...shapeProps}
         onMouseEnter={() => {
-          setShadowBlur(10);
-          setSelectedShape(shapeProps.id);
+          if (selectOnHover) {
+            setShadowBlur(10);
+            setSelectedShape(shapeProps.id);
+          }
         }}
         onMouseLeave={() => {
-          setShadowBlur(0);
+          if (selectOnHover) {
+            setShadowBlur(0);
+          }
         }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"
