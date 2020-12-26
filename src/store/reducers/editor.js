@@ -5,7 +5,7 @@ export default function editor(state = {}, action) {
     case actionTypes.SET_SELECTED_SHAPE_ID:
       return {
         ...state,
-        selectedId: action.selectedId,
+        selectedId: action.shapeId,
       };
     case actionTypes.UPDATE_SELECTED_SHAPE_ID:
       return {
@@ -39,7 +39,7 @@ export default function editor(state = {}, action) {
       };
     case actionTypes.UPDATE_SHAPE:
       let stateClone = [...state.layers];
-      stateClone.splice(action.id, 1, action.newAttrs);
+      stateClone.splice(action.shapeId, 1, action.newAttrs);
       return { ...state, layers: stateClone };
     case actionTypes.DISABLE_HOVER:
       return { ...state, selectOnHover: action.val };
@@ -49,6 +49,17 @@ export default function editor(state = {}, action) {
       return { ...state, selectedPencil: action.val };
     case actionTypes.SET_EDITOR_SCALE:
       return { ...state, scale: action.val };
+    case actionTypes.PUT_TO_TOP:
+      let layersClone = [...state.layers];
+      let selectedLayer = layersClone.splice(action.shapeId, 1)[0];
+      layersClone.push(selectedLayer);
+      return {
+        ...state,
+        layers: layersClone.map((layer, index) => {
+          layer.id = index;
+          return layer;
+        }),
+      };
     default:
       return state;
   }

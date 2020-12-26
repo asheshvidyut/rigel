@@ -7,6 +7,7 @@ import Badge from "react-bootstrap/Badge";
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
+  AiOutlineToTop,
   RiDeleteBin6Line,
 } from "react-icons/all";
 
@@ -28,6 +29,11 @@ class LeftPanel extends Component {
                 <div className="LayerInfo">
                   <span>{shape.displayName || shape.type}</span>
                   <div className="LayerActions">
+                    <span>
+                      <AiOutlineToTop
+                        onClick={() => this.props.putToTop(shape.id)}
+                      />
+                    </span>
                     <span>
                       {shape.display && (
                         <AiOutlineEyeInvisible
@@ -78,7 +84,7 @@ const mapDispatchToProps = (dispatch) => {
     setSelectedShape: (shapeId) =>
       dispatch({
         type: editorActionTypes.SET_SELECTED_SHAPE_ID,
-        selectedId: shapeId,
+        shapeId: shapeId,
       }),
     deleteShape: (shapeId) =>
       dispatch({
@@ -88,9 +94,15 @@ const mapDispatchToProps = (dispatch) => {
     updateShape: (shapeId, newAttrs) =>
       dispatch({
         type: editorActionTypes.UPDATE_SHAPE,
-        id: shapeId,
+        shapeId: shapeId,
         newAttrs: newAttrs,
       }),
+    putToTop: (shapeId) => {
+      dispatch({
+        type: editorActionTypes.PUT_TO_TOP,
+        shapeId: shapeId,
+      });
+    },
   };
 };
 

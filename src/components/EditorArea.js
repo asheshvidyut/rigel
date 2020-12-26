@@ -16,6 +16,14 @@ import RRing from "./shapes/Ring";
 import RArc from "./shapes/Arc";
 
 class EditorArea extends Component {
+  constructor(props) {
+    super(props);
+    this.stageRef = React.createRef();
+    this.layerRef = React.createRef();
+    this.stageHeight = 1000;
+    this.stageWidth = 1000;
+    this.scaleBy = 1.01;
+  }
   handleMouseDown = (e) => {
     if (this.props.selectedPencil) {
       this.props.setIsDrawing(true);
@@ -39,21 +47,38 @@ class EditorArea extends Component {
       }
     }
   };
+
   handleWheel = (e) => {
+    // prevent parent scrolling
     e.evt.preventDefault();
-    const scaleBy = 1.02;
-    const stage = e.target.getStage();
-    const oldScale = stage.scaleX();
-    const newScale = e.evt.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy;
-    this.props.setEditorScale(newScale);
+    let oldScale = this.stageRef.current.scaleX();
+
+    let pointer = this.stageRef.current.getPointerPosition();
+
+    var mousePointTo = {
+      x: (pointer.x - this.stageRef.current.x()) / oldScale,
+      y: (pointer.y - this.stageRef.current.y()) / oldScale,
+    };
+
+    var newScale =
+      e.evt.deltaY > 0 ? oldScale * this.scaleBy : oldScale / this.scaleBy;
+
+    this.stageRef.current.scale({ x: newScale, y: newScale });
+
+    var newPos = {
+      x: pointer.x - mousePointTo.x * newScale,
+      y: pointer.y - mousePointTo.y * newScale,
+    };
+    this.stageRef.current.position(newPos);
+    this.stageRef.current.batchDraw();
   };
 
   render() {
     return (
       <Stage
-        width={1000}
-        height={1000}
-        id="editor"
+        width={this.stageWidth}
+        height={this.stageHeight}
+        ref={this.stageRef}
         onClick={(e) => {
           e.evt.stopPropagation();
           this.props.setSelectedShape(-1);
@@ -66,7 +91,7 @@ class EditorArea extends Component {
         onWheel={this.handleWheel}
         className="EditorArea"
       >
-        <Layer>
+        <Layer ref={this.layerRef}>
           {this.props.layers
             .filter((shape) => shape.display)
             .map((shape, i) => {
@@ -270,12 +295,12 @@ const mapDispatchToProps = (dispatch) => {
     setSelectedShape: (shapeId) =>
       dispatch({
         type: editorActionTypes.SET_SELECTED_SHAPE_ID,
-        selectedId: shapeId,
+        shapeId: shapeId,
       }),
     updateShape: (shapeId, newAttrs) =>
       dispatch({
         type: editorActionTypes.UPDATE_SHAPE,
-        id: shapeId,
+        shapeId: shapeId,
         newAttrs: newAttrs,
       }),
     toggleHover: (val) => {
