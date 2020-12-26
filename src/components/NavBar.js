@@ -67,7 +67,7 @@ class NavBar extends Component {
           <Nav.Link>
             <FaPencilAlt />
           </Nav.Link>
-          <Nav.Link>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.TEXT)}>
             <MdTextFields />
           </Nav.Link>
         </Nav>

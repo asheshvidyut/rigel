@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Circle, Transformer } from "react-konva";
+import { Circle, Text, Transformer } from "react-konva";
 
 let RCircle = ({
   shapeProps,
@@ -7,6 +7,8 @@ let RCircle = ({
   onSelect,
   onChange,
   setSelectedShape,
+  toggleHover,
+  selectOnHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -29,11 +31,13 @@ let RCircle = ({
         ref={shapeRef}
         {...shapeProps}
         onMouseEnter={() => {
-          setShadowBlur(10);
-          setSelectedShape(shapeProps.id);
+          if (selectOnHover) {
+            setShadowBlur(10);
+            setSelectedShape(shapeProps.id);
+          }
         }}
         onMouseLeave={() => {
-          setShadowBlur(0);
+          if (selectOnHover) setShadowBlur(0);
         }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"
@@ -45,7 +49,9 @@ let RCircle = ({
             y: e.target.y(),
           });
         }}
+        onTransformStart={() => toggleHover(false)}
         onTransformEnd={(e) => {
+          toggleHover(true);
           // transformer is changing scale of the node
           // and NOT its width or height
           // but in the store we have only width and height

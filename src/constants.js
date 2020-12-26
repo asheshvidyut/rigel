@@ -6,6 +6,7 @@ export const SHAPES = {
   POLYGON: "POLYGON",
   STAR: "STAR",
   IMAGE: "IMAGE",
+  TEXT: "TEXT",
 };
 
 export const SHAPES_CONFIG = {
@@ -63,5 +64,13 @@ export const SHAPES_CONFIG = {
   },
   IMAGE: {
     display: true,
+  },
+  TEXT: {
+    display: true,
+    text: "Text",
+    fontFamily: "Times New Roman",
+    fontSize: 24,
+    x: 100,
+    y: 100,
   },
 };

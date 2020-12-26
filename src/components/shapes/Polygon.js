@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RegularPolygon, Transformer } from "react-konva";
+import { RegularPolygon, Text, Transformer } from "react-konva";
 
 let RPolygon = ({
   shapeProps,
@@ -7,6 +7,8 @@ let RPolygon = ({
   onSelect,
   onChange,
   setSelectedShape,
+  toggleHover,
+  selectOnHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -30,10 +32,14 @@ let RPolygon = ({
         {...shapeProps}
         draggable
         onMouseEnter={() => {
-          setShadowBlur(10);
-          setSelectedShape(shapeProps.id);
+          if (selectOnHover) {
+            setShadowBlur(10);
+            setSelectedShape(shapeProps.id);
+          }
         }}
-        onMouseLeave={() => setShadowBlur(0)}
+        onMouseLeave={() => {
+          if (selectOnHover) setShadowBlur(0);
+        }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"
         onDragEnd={(e) => {
@@ -43,7 +49,9 @@ let RPolygon = ({
             y: e.target.y(),
           });
         }}
+        onTransformStart={() => toggleHover(false)}
         onTransformEnd={(e) => {
+          toggleHover(true);
           // transformer is changing scale of the node
           // and NOT its width or height
           // but in the store we have only width and height

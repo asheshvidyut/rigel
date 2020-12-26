@@ -40,6 +40,8 @@ export default function editor(state = {}, action) {
       let stateClone = [...state.layers];
       stateClone.splice(action.id, 1, action.newAttrs);
       return { ...state, layers: stateClone };
+    case actionTypes.DISABLE_HOVER:
+      return { ...state, selectOnHover: action.val };
     default:
       return state;
   }

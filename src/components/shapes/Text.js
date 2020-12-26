@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Star, Transformer } from "react-konva";
+import { Text, Transformer } from "react-konva";
 
-let RStar = ({
+let RText = ({
   shapeProps,
   isSelected,
   onSelect,
@@ -25,7 +25,7 @@ let RStar = ({
 
   return (
     <React.Fragment>
-      <Star
+      <Text
         onClick={onSelect}
         onTap={onSelect}
         ref={shapeRef}
@@ -66,8 +66,8 @@ let RStar = ({
             x: node.x(),
             y: node.y(),
             // set minimal value
-            width: Math.max(5, node.width() * scaleX),
-            height: Math.max(node.height() * scaleY),
+            // width: Math.max(5, node.width() * scaleX),
+            // height: Math.max(5, node.height() * scaleY),
           });
         }}
       />
@@ -87,4 +87,4 @@ let RStar = ({
   );
 };
 
-export default RStar;
+export default RText;

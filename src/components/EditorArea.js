@@ -11,6 +11,7 @@ import RArrow from "./shapes/Arrow";
 import RPolygon from "./shapes/Polygon";
 import RStar from "./shapes/Star";
 import RImage from "./shapes/Image";
+import RText from "./shapes/Text";
 
 class EditorArea extends Component {
   render() {
@@ -43,6 +44,8 @@ class EditorArea extends Component {
                         this.props.updateShape(shape.id, newAttrs)
                       }
                       setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
                     />
                   );
                 case SHAPES.ELLIPSE:
@@ -58,6 +61,8 @@ class EditorArea extends Component {
                         this.props.updateShape(shape.id, newAttrs)
                       }
                       setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
                     />
                   );
                 case SHAPES.LINE:
@@ -73,6 +78,8 @@ class EditorArea extends Component {
                         this.props.updateShape(shape.id, newAttrs)
                       }
                       setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
                     />
                   );
                 case SHAPES.ARROW:
@@ -88,6 +95,8 @@ class EditorArea extends Component {
                         this.props.updateShape(shape.id, newAttrs)
                       }
                       setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
                     />
                   );
                 case SHAPES.POLYGON:
@@ -103,6 +112,8 @@ class EditorArea extends Component {
                         this.props.updateShape(shape.id, newAttrs)
                       }
                       setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
                     />
                   );
                 case SHAPES.STAR:
@@ -118,6 +129,8 @@ class EditorArea extends Component {
                         this.props.updateShape(shape.id, newAttrs)
                       }
                       setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
                     />
                   );
                 case SHAPES.IMAGE:
@@ -134,6 +147,25 @@ class EditorArea extends Component {
                         this.props.updateShape(shape.id, newAttrs)
                       }
                       setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
+                    />
+                  );
+                case SHAPES.TEXT:
+                  return (
+                    <RText
+                      key={shape.id}
+                      shapeProps={shape}
+                      isSelected={shape.id === this.props.selectedId}
+                      onSelect={() => {
+                        this.props.setSelectedShape(shape.id);
+                      }}
+                      onChange={(newAttrs) =>
+                        this.props.updateShape(shape.id, newAttrs)
+                      }
+                      setSelectedShape={this.props.setSelectedShape}
+                      toggleHover={this.props.toggleHover}
+                      selectOnHover={this.props.selectOnHover}
                     />
                   );
                 default:
@@ -150,6 +182,9 @@ const mapStateToProps = (state) => {
   return {
     selectedId: state.editor.selectedId,
     layers: state.editor.layers || [],
+    selectOnHover: state.editor.hasOwnProperty("selectOnHover")
+      ? state.editor.selectOnHover
+      : true,
   };
 };
 
@@ -166,6 +201,12 @@ const mapDispatchToProps = (dispatch) => {
         id: shapeId,
         newAttrs: newAttrs,
       }),
+    toggleHover: (val) => {
+      dispatch({
+        type: editorActionTypes.DISABLE_HOVER,
+        val: val,
+      });
+    },
   };
 };
 

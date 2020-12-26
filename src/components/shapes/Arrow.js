@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Arrow, Transformer } from "react-konva";
+import { Arrow, Text, Transformer } from "react-konva";
 
 let RArrow = ({
   shapeProps,
@@ -7,6 +7,7 @@ let RArrow = ({
   onSelect,
   onChange,
   setSelectedShape,
+  toggleHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -43,7 +44,9 @@ let RArrow = ({
             y: e.target.y(),
           });
         }}
+        onTransformStart={() => toggleHover(false)}
         onTransformEnd={(e) => {
+          toggleHover(true);
           // transformer is changing scale of the node
           // and NOT its width or height
           // but in the store we have only width and height

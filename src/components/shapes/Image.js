@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Transformer } from "react-konva";
+import { Image, Text, Transformer } from "react-konva";
 
 let RImage = ({
   shapeProps,
@@ -8,6 +8,7 @@ let RImage = ({
   onChange,
   setSelectedShape,
   imageSrc,
+  toggleHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -54,7 +55,9 @@ let RImage = ({
             y: e.target.y(),
           });
         }}
+        onTransformStart={() => toggleHover(false)}
         onTransformEnd={(e) => {
+          toggleHover(true);
           // transformer is changing scale of the node
           // and NOT its width or height
           // but in the store we have only width and height
