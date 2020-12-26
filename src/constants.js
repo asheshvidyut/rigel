@@ -4,6 +4,7 @@ export const SHAPES = {
   LINE: "LINE",
   ARROW: "ARROW",
   POLYGON: "POLYGON",
+  STAR: "STAR",
 };
 
 export const SHAPES_CONFIG = {
@@ -42,5 +43,15 @@ export const SHAPES_CONFIG = {
     y: 100,
     sides: 3,
     radius: 70,
+  },
+  STAR: {
+    x: 100,
+    y: 150,
+    numPoints: 5,
+    innerRadius: 40,
+    outerRadius: 70,
+    fill: "gray",
+    stroke: "black",
+    strokeWidth: 4,
   },
 };

@@ -9,6 +9,7 @@ import RCircle from "./shapes/Circle";
 import RLine from "./shapes/Line";
 import RArrow from "./shapes/Arrow";
 import RPolygon from "./shapes/Polygon";
+import RStar from "./shapes/Star";
 
 class EditorArea extends Component {
   render() {
@@ -89,6 +90,21 @@ class EditorArea extends Component {
               case SHAPES.POLYGON:
                 return (
                   <RPolygon
+                    key={shape.id}
+                    shapeProps={shape}
+                    isSelected={shape.id === this.props.selectedId}
+                    onSelect={() => {
+                      this.props.setSelectedShape(shape.id);
+                    }}
+                    onChange={(newAttrs) =>
+                      this.props.updateLayers(shape.id, newAttrs)
+                    }
+                    setSelectedShape={this.props.setSelectedShape}
+                  />
+                );
+              case SHAPES.STAR:
+                return (
+                  <RStar
                     key={shape.id}
                     shapeProps={shape}
                     isSelected={shape.id === this.props.selectedId}

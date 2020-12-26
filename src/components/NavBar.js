@@ -51,7 +51,7 @@ class NavBar extends Component {
           <Nav.Link onClick={() => this.props.addShape(SHAPES.POLYGON)}>
             <BsTriangle />
           </Nav.Link>
-          <Nav.Link>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.STAR)}>
             <AiOutlineStar />
           </Nav.Link>
           <Nav.Link>
