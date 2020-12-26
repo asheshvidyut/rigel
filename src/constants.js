@@ -2,6 +2,8 @@ export const SHAPES = {
   ELLIPSE: "ELLIPSE",
   RECTANGLE: "RECTANGLE",
   LINE: "LINE",
+  ARROW: "ARROW",
+  POLYGON: "POLYGON",
 };
 
 export const SHAPES_CONFIG = {
@@ -24,6 +26,21 @@ export const SHAPES_CONFIG = {
     stroke: "gray",
     strokeWidth: 5,
     y: 100,
-    points: [0, 0, 100, 100],
+    points: [0, 100, 100, 0],
+  },
+  ARROW: {
+    x: 50,
+    stroke: "gray",
+    strokeWidth: 5,
+    y: 100,
+    points: [0, 100, 100, 0],
+  },
+  POLYGON: {
+    x: 50,
+    stroke: "gray",
+    strokeWidth: 5,
+    y: 100,
+    sides: 3,
+    radius: 100,
   },
 };

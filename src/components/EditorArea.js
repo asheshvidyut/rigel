@@ -7,6 +7,8 @@ import Rectangle from "./shapes/Rectangle";
 import * as editorActionTypes from "../store/actions/editor";
 import RCircle from "./shapes/Circle";
 import RLine from "./shapes/Line";
+import RArrow from "./shapes/Arrow";
+import RPolygon from "./shapes/Polygon";
 
 class EditorArea extends Component {
   render() {
@@ -57,6 +59,36 @@ class EditorArea extends Component {
               case SHAPES.LINE:
                 return (
                   <RLine
+                    key={shape.id}
+                    shapeProps={shape}
+                    isSelected={shape.id === this.props.selectedId}
+                    onSelect={() => {
+                      this.props.setSelectedShape(shape.id);
+                    }}
+                    onChange={(newAttrs) =>
+                      this.props.updateLayers(shape.id, newAttrs)
+                    }
+                    setSelectedShape={this.props.setSelectedShape}
+                  />
+                );
+              case SHAPES.ARROW:
+                return (
+                  <RArrow
+                    key={shape.id}
+                    shapeProps={shape}
+                    isSelected={shape.id === this.props.selectedId}
+                    onSelect={() => {
+                      this.props.setSelectedShape(shape.id);
+                    }}
+                    onChange={(newAttrs) =>
+                      this.props.updateLayers(shape.id, newAttrs)
+                    }
+                    setSelectedShape={this.props.setSelectedShape}
+                  />
+                );
+              case SHAPES.POLYGON:
+                return (
+                  <RPolygon
                     key={shape.id}
                     shapeProps={shape}
                     isSelected={shape.id === this.props.selectedId}

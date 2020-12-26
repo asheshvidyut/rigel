@@ -45,10 +45,10 @@ class NavBar extends Component {
           <Nav.Link onClick={() => this.props.addShape(SHAPES.RECTANGLE)}>
             <BiRectangle />
           </Nav.Link>
-          <Nav.Link>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.ARROW)}>
             <BsArrowUpRight />
           </Nav.Link>
-          <Nav.Link>
+          <Nav.Link onClick={() => this.props.addShape(SHAPES.POLYGON)}>
             <BsTriangle />
           </Nav.Link>
           <Nav.Link>
