@@ -14,7 +14,10 @@ import RImage from "./shapes/Image";
 import RText from "./shapes/Text";
 import RRing from "./shapes/Ring";
 import RArc from "./shapes/Arc";
-import { Button } from "react-bootstrap";
+import { Col, Button, Form } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 
 class EditorArea extends Component {
   constructor(props) {
@@ -24,7 +27,12 @@ class EditorArea extends Component {
     this.stageHeight = 1000;
     this.stageWidth = 2000;
     this.scaleBy = 1.01;
+    this.state = {
+      showExpModal: false,
+      previewImage: null,
+    };
   }
+
   handleMouseDown = (e) => {
     if (this.props.selectedPencil) {
       this.props.setIsDrawing(true);
@@ -36,27 +44,25 @@ class EditorArea extends Component {
     }
   };
 
-  handleExport = () => {
+  toggleExportModal = (val) => {
     this.props.setSelectedShape(-1);
     setTimeout(() => {
-      let uri = this.stageRef.current.toDataURL({
-        pixelRatio: 2,
-        quality: 1,
-        x: 0,
-        y: 0,
-        width: 2000,
-        height: 1000,
-      });
-      function downloadURI(uri, name) {
-        var link = document.createElement("a");
-        link.download = name;
-        link.href = uri;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-      downloadURI(uri, "design.png");
+      this.setState({ showExpModal: val });
+      this.setState({ previewImage: this.getPreviewImage() });
     }, 100);
+  };
+
+  handleExport = () => {
+    let uri = this.getPreviewImage();
+    function downloadURI(uri, name) {
+      var link = document.createElement("a");
+      link.download = name;
+      link.href = uri;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    downloadURI(uri, "design.png");
   };
 
   handleMouseMove = (e) => {
@@ -100,9 +106,97 @@ class EditorArea extends Component {
     this.stageRef.current.batchDraw();
   };
 
+  fitLayersToStage = (selectedLayers) => {
+    let chosenLayers = selectedLayers.filter((layer) => layer.display);
+    let startX = 0,
+      startY = 0;
+    for (let i = 0; i < chosenLayers.length; i++) {
+      startX = Math.min(startX, chosenLayers[i].x);
+      startY = Math.min(startY, chosenLayers[i].y);
+    }
+    this.stageRef.current.position({ x: startX, y: startY });
+    this.stageRef.current.batchDraw();
+    return { x: startX, y: startY };
+  };
+
+  getPreviewImage = () => {
+    this.props.setSelectedShape(-1);
+    let layers = [...this.props.layers];
+    let selectedLayers = layers.filter((layer) => layer.display);
+    let position = this.fitLayersToStage(selectedLayers);
+    let uri = this.stageRef.current.toDataURL({
+      pixelRatio: 1,
+      quality: 1,
+      x: position.x,
+      y: position.y,
+      width: 2000,
+      height: 1000,
+    });
+    return uri;
+  };
+
+  handleCheckboxChange(e) {
+    this.props.setSelectedShape(-1);
+    let target = e.target;
+    let layerId = parseInt(target.name, 10);
+    let layers = [...this.props.layers];
+    layers.map((layer) => {
+      if (layer.id === layerId) {
+        layer.display = e.target.checked;
+      }
+      return layer;
+    });
+    this.props.setLayers(layers);
+    setTimeout(() => {
+      this.setState({ previewImage: this.getPreviewImage() });
+    }, 100);
+  }
+
   render() {
     return (
       <Fragment>
+        <Modal
+          dialogClassName="ExportModal"
+          show={this.state.showExpModal}
+          onHide={() => this.toggleExportModal(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Select Layers to Export</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Row>
+              <Button
+                onClick={() => {
+                  this.handleExport();
+                }}
+              >
+                Export Selected Layers
+              </Button>
+            </Row>
+            <Row>
+              <Col md={2}>
+                <Form>
+                  {this.props.layers.map((layer) => {
+                    return (
+                      <Form.Check
+                        key={layer.id}
+                        type="checkbox"
+                        checked={layer.display}
+                        name={layer.id}
+                        label={`${layer.displayName || layer.type}`}
+                        onChange={(e) => this.handleCheckboxChange(e)}
+                      />
+                    );
+                  })}
+                </Form>
+              </Col>
+              <Col md={10}>
+                <p>Preview</p>
+                <img src={this.state.previewImage} />
+              </Col>
+            </Row>
+          </Modal.Body>
+        </Modal>
         <Button
           size="lg"
           style={{
@@ -113,7 +207,7 @@ class EditorArea extends Component {
             top: 5,
           }}
           variant="success"
-          onClick={() => this.handleExport()}
+          onClick={() => this.toggleExportModal(true)}
         >
           Export
         </Button>
@@ -131,6 +225,7 @@ class EditorArea extends Component {
           onMouseMove={(e) => this.handleMouseMove(e)}
           onMouseUp={(e) => this.props.setIsDrawing(false)}
           onWheel={this.handleWheel}
+          draggable
           className="EditorArea"
         >
           <Layer ref={this.layerRef}>
@@ -374,6 +469,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: editorActionTypes.SET_EDITOR_SCALE,
         val: val,
+      });
+    },
+    setLayers: (layers) => {
+      dispatch({
+        type: editorActionTypes.SET_LAYERS,
+        val: layers,
       });
     },
   };

@@ -2,3 +2,9 @@
 .EditorArea {
   background-color: $panel-bg;
 }
+.ExportModal {
+  max-width: 85% !important;
+}
+.modal-body {
+  overflow: scroll;
+}
