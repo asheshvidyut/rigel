@@ -17,7 +17,6 @@ import RArc from "./shapes/Arc";
 import { Col, Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
 
 class EditorArea extends Component {
   constructor(props) {
