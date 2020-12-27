@@ -70,6 +70,8 @@ export const SHAPES_CONFIG = {
     rotation: 0,
     scaleX: 1,
     scaleY: 1,
+    width: 150,
+    height: 150,
   },
   STAR: {
     x: 100,
@@ -84,6 +86,8 @@ export const SHAPES_CONFIG = {
     rotation: 0,
     scaleX: 1,
     scaleY: 1,
+    width: 150,
+    height: 150,
   },
   IMAGE: {
     display: true,
@@ -106,6 +110,8 @@ export const SHAPES_CONFIG = {
     textDecoration: "none",
     align: "center",
     verticalAlign: "center",
+    width: 200,
+    height: 100,
   },
   RING: {
     x: 80,
