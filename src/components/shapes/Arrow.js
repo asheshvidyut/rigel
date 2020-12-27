@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Arrow, Transformer } from "react-konva";
+import { Arc, Arrow, Transformer } from "react-konva";
 
 let RArrow = ({
   shapeProps,
@@ -33,11 +33,15 @@ let RArrow = ({
         ref={shapeRef}
         {...shapeProps}
         draggable
-        onMouseEnter={() => {
-          setShadowBlur(10);
+        onDblClick={() => {
           setSelectedShape(shapeProps.id);
         }}
-        onMouseLeave={() => setShadowBlur(0)}
+        onMouseEnter={() => {
+          setShadowBlur(10);
+        }}
+        onMouseOut={() => {
+          setShadowBlur(0);
+        }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"
         onDragEnd={(e) => {

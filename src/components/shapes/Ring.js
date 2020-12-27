@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Ring, Transformer } from "react-konva";
+import { Rect, Ring, Transformer } from "react-konva";
 
 let RRing = ({
   shapeProps,
@@ -8,7 +8,6 @@ let RRing = ({
   onChange,
   setSelectedShape,
   toggleHover,
-  selectOnHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -34,16 +33,14 @@ let RRing = ({
         ref={shapeRef}
         {...shapeProps}
         draggable
-        onMouseEnter={() => {
-          if (selectOnHover) {
-            setShadowBlur(10);
-            setSelectedShape(shapeProps.id);
-          }
+        onDblClick={() => {
+          setSelectedShape(shapeProps.id);
         }}
-        onMouseLeave={() => {
-          if (selectOnHover) {
-            setShadowBlur(0);
-          }
+        onMouseEnter={() => {
+          setShadowBlur(10);
+        }}
+        onMouseOut={() => {
+          setShadowBlur(0);
         }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"

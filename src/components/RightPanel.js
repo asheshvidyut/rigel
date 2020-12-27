@@ -79,40 +79,6 @@ class RightPanel extends Component {
                     />
                   </InputGroup>
                 </div>
-                <div className="Tuple">
-                  <InputGroup className="First">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="width">Width</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                      aria-label="width"
-                      defaultValue={this.props.layer.width}
-                      onChange={(e) => {
-                        if (e.target.value)
-                          this.handleChange(
-                            e.target.ariaLabel,
-                            parseFloat(e.target.value)
-                          );
-                      }}
-                    />
-                  </InputGroup>
-                  <InputGroup className="Second">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="height">Height</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                      aria-label="height"
-                      defaultValue={this.props.layer.height}
-                      onChange={(e) => {
-                        if (e.target.value)
-                          this.handleChange(
-                            e.target.ariaLabel,
-                            parseFloat(e.target.value)
-                          );
-                      }}
-                    />
-                  </InputGroup>
-                </div>
                 <div className="Single">
                   <InputGroup>
                     <InputGroup.Prepend>

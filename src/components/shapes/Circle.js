@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Circle, Transformer } from "react-konva";
+import { Arrow, Circle, Transformer } from "react-konva";
 
 let RCircle = ({
   shapeProps,
@@ -8,7 +8,6 @@ let RCircle = ({
   onChange,
   setSelectedShape,
   toggleHover,
-  selectOnHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -30,14 +29,14 @@ let RCircle = ({
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        onMouseEnter={() => {
-          if (selectOnHover) {
-            setShadowBlur(10);
-            setSelectedShape(shapeProps.id);
-          }
+        onDblClick={() => {
+          setSelectedShape(shapeProps.id);
         }}
-        onMouseLeave={() => {
-          if (selectOnHover) setShadowBlur(0);
+        onMouseEnter={() => {
+          setShadowBlur(10);
+        }}
+        onMouseOut={() => {
+          setShadowBlur(0);
         }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"
@@ -58,8 +57,6 @@ let RCircle = ({
           // but in the store we have only width and height
           // to match the data better we will reset scale on transform end
           const node = shapeRef.current;
-          const width = node.width();
-          const height = node.height();
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
 
@@ -71,8 +68,8 @@ let RCircle = ({
             x: node.x(),
             y: node.y(),
             // set minimal value
-            width: Math.max(5, width * scaleX),
-            height: Math.max(5, height * scaleY),
+            scaleX: scaleX,
+            scaleY: scaleY,
           });
           setSelectedShape(shapeProps.id);
         }}

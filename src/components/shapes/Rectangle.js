@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Rect, Transformer } from "react-konva";
+import { Rect, RegularPolygon, Transformer } from "react-konva";
 
 let Rectangle = ({
   shapeProps,
@@ -8,7 +8,6 @@ let Rectangle = ({
   onChange,
   setSelectedShape,
   toggleHover,
-  selectOnHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -46,16 +45,14 @@ let Rectangle = ({
         ref={shapeRef}
         {...shapeProps}
         draggable
-        onMouseEnter={() => {
-          if (selectOnHover && !shapeProps.displayName) {
-            setShadowBlur(10);
-            setSelectedShape(shapeProps.id);
-          }
+        onDblClick={() => {
+          setSelectedShape(shapeProps.id);
         }}
-        onMouseLeave={() => {
-          if (selectOnHover && !shapeProps.displayName) {
-            setShadowBlur(0);
-          }
+        onMouseEnter={() => {
+          setShadowBlur(10);
+        }}
+        onMouseOut={() => {
+          setShadowBlur(0);
         }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"

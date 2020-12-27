@@ -257,7 +257,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.CIRCLE:
@@ -274,7 +273,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.LINE:
@@ -291,7 +289,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.ARROW:
@@ -308,7 +305,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.POLYGON:
@@ -325,7 +321,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.STAR:
@@ -342,7 +337,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.IMAGE:
@@ -360,7 +354,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.TEXT:
@@ -377,7 +370,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.RING:
@@ -394,7 +386,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   case SHAPES.ARC:
@@ -411,7 +402,6 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
-                        selectOnHover={this.props.selectOnHover}
                       />
                     );
                   default:
@@ -430,9 +420,6 @@ const mapStateToProps = (state) => {
     selectedId: state.editor.selectedId,
     isDrawing: state.editor.isDrawing,
     layers: state.editor.layers || [],
-    selectOnHover: state.editor.hasOwnProperty("selectOnHover")
-      ? state.editor.selectOnHover
-      : true,
     selectedOperation: state.editor.selectedOperation,
     stageScale: state.editor.scale,
   };

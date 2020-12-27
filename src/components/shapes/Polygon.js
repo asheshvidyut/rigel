@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RegularPolygon, Transformer } from "react-konva";
+import { Line, RegularPolygon, Transformer } from "react-konva";
 
 let RPolygon = ({
   shapeProps,
@@ -8,7 +8,6 @@ let RPolygon = ({
   onChange,
   setSelectedShape,
   toggleHover,
-  selectOnHover,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -32,14 +31,14 @@ let RPolygon = ({
         ref={shapeRef}
         {...shapeProps}
         draggable
-        onMouseEnter={() => {
-          if (selectOnHover) {
-            setShadowBlur(10);
-            setSelectedShape(shapeProps.id);
-          }
+        onDblClick={() => {
+          setSelectedShape(shapeProps.id);
         }}
-        onMouseLeave={() => {
-          if (selectOnHover) setShadowBlur(0);
+        onMouseEnter={() => {
+          setShadowBlur(10);
+        }}
+        onMouseOut={() => {
+          setShadowBlur(0);
         }}
         shadowBlur={shadowBlur}
         shadowColor="#0b8793"
