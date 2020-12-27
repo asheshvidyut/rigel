@@ -101,6 +101,11 @@ export const SHAPES_CONFIG = {
     rotation: 0,
     scaleX: 1,
     scaleY: 1,
+    padding: 10,
+    lineHeight: 2,
+    textDecoration: "none",
+    align: "center",
+    verticalAlign: "center",
   },
   RING: {
     x: 80,
