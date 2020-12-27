@@ -45,8 +45,8 @@ export default function editor(state = {}, action) {
       return { ...state, selectOnHover: action.val };
     case actionTypes.SET_IS_DRAWING:
       return { ...state, isDrawing: action.val };
-    case actionTypes.SET_SELECTED_PENCIL:
-      return { ...state, selectedPencil: action.val };
+    case actionTypes.SET_OPERATION:
+      return { ...state, selectedOperation: action.val };
     case actionTypes.SET_EDITOR_SCALE:
       return { ...state, scale: action.val };
     case actionTypes.SET_LAYERS:

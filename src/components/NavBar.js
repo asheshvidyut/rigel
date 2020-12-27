@@ -118,49 +118,111 @@ class NavBar extends Component {
           </NavDropdown>
         </Nav>
         <Nav>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.CIRCLE)}>
-            <BiCircle />
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.CIRCLE)}>
+            {this.props.selectedOperation === SHAPES.CIRCLE ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <BiCircle />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <BiCircle />
+            )}
           </Nav.Link>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.LINE)}>
-            <AiOutlineMinus />
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.LINE)}>
+            {this.props.selectedOperation === SHAPES.LINE ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <AiOutlineMinus />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <AiOutlineMinus />
+            )}
           </Nav.Link>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.RECTANGLE)}>
-            <BiRectangle />
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.RECTANGLE)}>
+            {this.props.selectedOperation === SHAPES.RECTANGLE ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <BiRectangle />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <BiRectangle />
+            )}
           </Nav.Link>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.ARROW)}>
-            <BsArrowUpRight />
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.ARROW)}>
+            {this.props.selectedOperation === SHAPES.ARROW ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <BsArrowUpRight />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <BsArrowUpRight />
+            )}
           </Nav.Link>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.POLYGON)}>
-            <BsTriangle />
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.POLYGON)}>
+            {this.props.selectedOperation === SHAPES.POLYGON ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <BsTriangle />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <BsTriangle />
+            )}
           </Nav.Link>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.STAR)}>
-            <AiOutlineStar />
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.STAR)}>
+            {this.props.selectedOperation === SHAPES.STAR ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <AiOutlineStar />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <AiOutlineStar />
+            )}
           </Nav.Link>
           <Nav.Link onClick={() => this.inputFileRef.current.click()}>
             <BiImage />
           </Nav.Link>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.RING)}>
-            <FaLifeRing />
-          </Nav.Link>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.ARC)}>
-            <CgShapeHalfCircle />
-          </Nav.Link>
-          <Nav.Link
-            onClick={() =>
-              this.props.setSelectedPencil(!this.props.selectedPencil)
-            }
-          >
-            {this.props.selectedPencil ? (
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.RING)}>
+            {this.props.selectedOperation === SHAPES.RING ? (
               <IconContext.Provider value={{ color: "#0b8793" }}>
                 <div>
-                  <FaPenFancy />
+                  <FaLifeRing />
                 </div>
               </IconContext.Provider>
             ) : (
-              <FaPenFancy />
+              <FaLifeRing />
             )}
           </Nav.Link>
-          <Nav.Link onClick={() => this.props.addShape(SHAPES.TEXT)}>
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.ARC)}>
+            {this.props.selectedOperation === SHAPES.ARC ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <CgShapeHalfCircle />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <CgShapeHalfCircle />
+            )}
+          </Nav.Link>
+          <Nav.Link>
+            {this.props.selectedOperation === SHAPES.PENCIL ? (
+              <IconContext.Provider value={{ color: "#0b8793" }}>
+                <div>
+                  <FaPenFancy onClick={() => this.props.unsetOperation()} />
+                </div>
+              </IconContext.Provider>
+            ) : (
+              <FaPenFancy
+                onClick={() => this.props.setOperation(SHAPES.PENCIL)}
+              />
+            )}
+          </Nav.Link>
+          <Nav.Link onClick={() => this.props.setOperation(SHAPES.TEXT)}>
             <MdTextFields />
           </Nav.Link>
         </Nav>
@@ -182,8 +244,7 @@ class NavBar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    selectedPencil: state.editor.selectedPencil,
-    uri: state.editor.uri,
+    selectedOperation: state.editor.selectedOperation,
   };
 };
 
@@ -197,10 +258,16 @@ const mapDispatchToProps = (dispatch) => {
       });
       dispatch({ type: editorActionTypes.UPDATE_SELECTED_SHAPE_ID });
     },
-    setSelectedPencil: (val) => {
+    setOperation: (val) => {
       dispatch({
-        type: editorActionTypes.SET_SELECTED_PENCIL,
+        type: editorActionTypes.SET_OPERATION,
         val: val,
+      });
+    },
+    unsetOperation: () => {
+      dispatch({
+        type: editorActionTypes.SET_OPERATION,
+        val: null,
       });
     },
     addDeviceBackground: (config) => {

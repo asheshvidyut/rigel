@@ -33,13 +33,20 @@ class EditorArea extends Component {
   }
 
   handleMouseDown = (e) => {
-    if (this.props.selectedPencil) {
+    if (this.props.selectedOperation === SHAPES.PENCIL) {
       this.props.setIsDrawing(true);
       this.stageRef.current.scale({ x: 1, y: 1 });
       this.stageRef.current.position({ x: 0, y: 0 });
       this.stageRef.current.batchDraw();
       const pos = e.target.getStage().getPointerPosition();
       this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
+    } else if (this.props.selectedOperation) {
+      let pointerPosition = this.stageRef.current.getPointerPosition();
+      this.props.addShape(this.props.selectedOperation, {
+        x: pointerPosition.x,
+        y: pointerPosition.y,
+      });
+      this.props.setOperation(null);
     }
   };
 
@@ -65,7 +72,7 @@ class EditorArea extends Component {
   };
 
   handleMouseMove = (e) => {
-    if (this.props.selectedPencil) {
+    if (this.props.selectedOperation === SHAPES.PENCIL) {
       if (!this.props.isDrawing) return;
       const stage = e.target.getStage();
       const pos = stage.getPointerPosition();
@@ -224,7 +231,7 @@ class EditorArea extends Component {
           onMouseMove={(e) => this.handleMouseMove(e)}
           onMouseUp={(e) => this.props.setIsDrawing(false)}
           onWheel={this.handleWheel}
-          draggable
+          draggable={!this.props.selectedOperation}
           className="EditorArea"
         >
           <Layer ref={this.layerRef}>
@@ -422,7 +429,7 @@ const mapStateToProps = (state) => {
     selectOnHover: state.editor.hasOwnProperty("selectOnHover")
       ? state.editor.selectOnHover
       : true,
-    selectedPencil: state.editor.selectedPencil,
+    selectedOperation: state.editor.selectedOperation,
     stageScale: state.editor.scale,
   };
 };
@@ -475,6 +482,20 @@ const mapDispatchToProps = (dispatch) => {
         type: editorActionTypes.SET_LAYERS,
         val: layers,
       });
+    },
+    setOperation: (val) => {
+      dispatch({
+        type: editorActionTypes.SET_OPERATION,
+        val: val,
+      });
+    },
+    addShape: (shape, config = {}) => {
+      dispatch({
+        type: editorActionTypes.ADD_SHAPE,
+        shape: shape,
+        config: config,
+      });
+      dispatch({ type: editorActionTypes.UPDATE_SELECTED_SHAPE_ID });
     },
   };
 };

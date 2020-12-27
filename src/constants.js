@@ -9,6 +9,7 @@ export const SHAPES = {
   TEXT: "TEXT",
   RING: "RING",
   ARC: "ARC",
+  PENCIL: "PENCIL",
 };
 
 export const SHAPES_CONFIG = {
