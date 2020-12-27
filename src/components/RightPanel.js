@@ -17,7 +17,7 @@ class RightPanel extends Component {
 
   handleChangeComplete = (color) => {
     let newAttrs = { ...this.props.layer };
-    if (newAttrs.type === SHAPES.LINE) {
+    if (newAttrs.type === SHAPES.LINE || newAttrs.type === SHAPES.ARROW) {
       newAttrs["stroke"] = color.hex;
     } else {
       newAttrs["fill"] = color.hex;
@@ -214,6 +214,65 @@ class RightPanel extends Component {
               </Form>
             )}
             {this.props.layer.type === SHAPES.LINE && (
+              <Form>
+                <div className="Tuple">
+                  <InputGroup className="First">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="x">X</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="x"
+                      defaultValue={this.props.layer.x}
+                      onChange={(e) => {
+                        this.handleChange(
+                          e.target.ariaLabel,
+                          parseFloat(e.target.value)
+                        );
+                      }}
+                    />
+                  </InputGroup>
+                  <InputGroup className="Second">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="y">Y</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="y"
+                      defaultValue={this.props.layer.y}
+                      onChange={(e) => {
+                        this.handleChange(
+                          e.target.ariaLabel,
+                          parseFloat(e.target.value)
+                        );
+                      }}
+                    />
+                  </InputGroup>
+                </div>
+                <div className="Single">
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="strokeWidth">
+                        Stroke Width
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="strokeWidth"
+                      defaultValue={this.props.layer.strokeWidth}
+                      onChange={(e) => {
+                        this.handleChange(
+                          e.target.ariaLabel,
+                          parseFloat(e.target.value)
+                        );
+                      }}
+                    />
+                  </InputGroup>
+                </div>
+                <SketchPicker
+                  color={this.props.layer.fill}
+                  onChangeComplete={this.handleChangeComplete}
+                />
+              </Form>
+            )}
+            {this.props.layer.type === SHAPES.ARROW && (
               <Form>
                 <div className="Tuple">
                   <InputGroup className="First">
