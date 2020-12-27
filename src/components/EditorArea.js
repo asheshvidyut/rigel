@@ -191,7 +191,7 @@ class EditorArea extends Component {
               </Col>
               <Col md={10}>
                 <p>Preview</p>
-                <img src={this.state.previewImage} />
+                <img alt="" src={this.state.previewImage} />
               </Col>
             </Row>
           </Modal.Body>
