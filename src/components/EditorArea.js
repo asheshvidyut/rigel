@@ -41,6 +41,7 @@ class EditorArea extends Component {
       const pos = e.target.getStage().getPointerPosition();
       this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
     } else if (this.props.selectedOperation) {
+      this.stageRef.current.scale({ x: 1, y: 1 });
       let pointerPosition = this.stageRef.current.getPointerPosition();
       this.props.addShape(this.props.selectedOperation, {
         x: pointerPosition.x,
