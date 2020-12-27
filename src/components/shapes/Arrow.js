@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Arc, Arrow, Transformer } from "react-konva";
+import { Arrow, Transformer } from "react-konva";
 
 let RArrow = ({
   shapeProps,

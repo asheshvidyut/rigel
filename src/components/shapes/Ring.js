@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Rect, Ring, Transformer } from "react-konva";
+import { Ring, Transformer } from "react-konva";
 
 let RRing = ({
   shapeProps,

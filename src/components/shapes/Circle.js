@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Arrow, Circle, Transformer } from "react-konva";
+import { Circle, Transformer } from "react-konva";
 
 let RCircle = ({
   shapeProps,

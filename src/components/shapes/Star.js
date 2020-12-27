@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Ring, Star, Transformer } from "react-konva";
+import { Star, Transformer } from "react-konva";
 
 let RStar = ({
   shapeProps,

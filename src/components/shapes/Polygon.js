@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Line, RegularPolygon, Transformer } from "react-konva";
+import { RegularPolygon, Transformer } from "react-konva";
 
 let RPolygon = ({
   shapeProps,

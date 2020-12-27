@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Line, Transformer } from "react-konva";
+import { Line, Transformer } from "react-konva";
 
 let RLine = ({
   shapeProps,

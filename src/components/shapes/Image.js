@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Circle, Image, Transformer } from "react-konva";
+import { Image, Transformer } from "react-konva";
 
 let RImage = ({
   shapeProps,
