@@ -50,7 +50,7 @@ class EditorArea extends Component {
       });
       setTimeout(() => {
         this.props.setOperation(null);
-      }, 1000);
+      }, 500);
     }
   };
 
