@@ -48,6 +48,7 @@ let RCircle = ({
             x: e.target.x(),
             y: e.target.y(),
           });
+          setSelectedShape(shapeProps.id);
         }}
         onTransformStart={() => toggleHover(false)}
         onTransformEnd={(e) => {
@@ -73,6 +74,7 @@ let RCircle = ({
             width: Math.max(5, width * scaleX),
             height: Math.max(5, height * scaleY),
           });
+          setSelectedShape(shapeProps.id);
         }}
       />
       {isSelected && (

@@ -53,6 +53,7 @@ let RRing = ({
             x: e.target.x(),
             y: e.target.y(),
           });
+          setSelectedShape(shapeProps.id);
         }}
         onTransformStart={() => {
           toggleHover(false);
@@ -80,6 +81,7 @@ let RRing = ({
             scaleY: scaleY,
             rotation: rotation,
           });
+          setSelectedShape(shapeProps.id);
         }}
       />
       {isSelected && (

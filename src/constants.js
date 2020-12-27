@@ -23,7 +23,7 @@ export const SHAPES_CONFIG = {
     rotation: 0,
     scaleX: 1,
     scaleY: 1,
-    radius: 100,
+    radius: 60,
   },
   RECTANGLE: {
     x: 50,
@@ -32,6 +32,7 @@ export const SHAPES_CONFIG = {
     height: 100,
     fill: "#000000",
     display: true,
+    cornerRadius: [0, 0, 0, 0],
     rotation: 0,
     scaleX: 1,
     scaleY: 1,

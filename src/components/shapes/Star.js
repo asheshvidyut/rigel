@@ -49,6 +49,7 @@ let RStar = ({
             x: e.target.x(),
             y: e.target.y(),
           });
+          setSelectedShape(shapeProps.id);
         }}
         onTransformStart={() => toggleHover(false)}
         onTransformEnd={(e) => {
@@ -75,6 +76,7 @@ let RStar = ({
             height: Math.max(5, height * scaleY),
             rotation: node.rotation(),
           });
+          setSelectedShape(shapeProps.id);
         }}
       />
       {isSelected && (

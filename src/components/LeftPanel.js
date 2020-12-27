@@ -81,11 +81,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSelectedShape: (shapeId) =>
+    setSelectedShape: (shapeId) => {
+      dispatch({
+        type: editorActionTypes.SET_SELECTED_SHAPE_ID,
+        shapeId: -1,
+      });
       dispatch({
         type: editorActionTypes.SET_SELECTED_SHAPE_ID,
         shapeId: shapeId,
-      }),
+      });
+    },
     deleteShape: (shapeId) =>
       dispatch({
         type: editorActionTypes.DELETE_SHAPE,

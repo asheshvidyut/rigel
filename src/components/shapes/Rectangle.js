@@ -65,6 +65,7 @@ let Rectangle = ({
             x: e.target.x(),
             y: e.target.y(),
           });
+          setSelectedShape(shapeProps.id);
         }}
         onTransformStart={() => {
           if (
@@ -107,6 +108,7 @@ let Rectangle = ({
             height: Math.max(5, height * scaleY),
             rotation: node.rotation(),
           });
+          setSelectedShape(shapeProps.id);
         }}
       />
       {isSelected &&

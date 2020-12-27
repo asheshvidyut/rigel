@@ -46,6 +46,7 @@ let RArrow = ({
             x: e.target.x(),
             y: e.target.y(),
           });
+          setSelectedShape(shapeProps.id);
         }}
         onTransformStart={() => toggleHover(false)}
         onTransformEnd={(e) => {
@@ -70,6 +71,7 @@ let RArrow = ({
             scaleX: scaleX,
             scaleY: scaleY,
           });
+          setSelectedShape(shapeProps.id);
         }}
       />
       {isSelected && (
