@@ -700,6 +700,138 @@ class RightPanel extends Component {
                 />
               </Form>
             )}
+            {this.props.layer.type === SHAPES.ARC && (
+              <Form>
+                <div className="Tuple">
+                  <InputGroup className="First">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="x">X</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="x"
+                      defaultValue={this.props.layer.x}
+                      onChange={(e) => {
+                        if (e.target.value)
+                          this.handleChange(
+                            e.target.ariaLabel,
+                            parseFloat(e.target.value)
+                          );
+                      }}
+                    />
+                  </InputGroup>
+                  <InputGroup className="Second">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="y">Y</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="y"
+                      defaultValue={this.props.layer.y}
+                      onChange={(e) => {
+                        if (e.target.value)
+                          this.handleChange(
+                            e.target.ariaLabel,
+                            parseFloat(e.target.value)
+                          );
+                      }}
+                    />
+                  </InputGroup>
+                </div>
+                <div className="Tuple">
+                  <InputGroup className="First">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="width">Width</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="width"
+                      defaultValue={this.props.layer.width}
+                      onChange={(e) => {
+                        if (e.target.value)
+                          this.handleChange(
+                            e.target.ariaLabel,
+                            parseFloat(e.target.value)
+                          );
+                      }}
+                    />
+                  </InputGroup>
+                  <InputGroup className="Second">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="height">Height</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="height"
+                      defaultValue={this.props.layer.height}
+                      onChange={(e) => {
+                        if (e.target.value)
+                          this.handleChange(
+                            e.target.ariaLabel,
+                            parseFloat(e.target.value)
+                          );
+                      }}
+                    />
+                  </InputGroup>
+                </div>
+                <div className="Tuple">
+                  <InputGroup className="First">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="innerRadius">
+                        Inner Radius
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="innerRadius"
+                      defaultValue={this.props.layer.innerRadius}
+                      onChange={(e) => {
+                        if (e.target.value)
+                          this.handleChange(
+                            e.target.ariaLabel,
+                            parseFloat(e.target.value)
+                          );
+                      }}
+                    />
+                  </InputGroup>
+                  <InputGroup className="Second">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="outerRadius">
+                        Outer Radius
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="outerRadius"
+                      defaultValue={this.props.layer.outerRadius}
+                      onChange={(e) => {
+                        if (e.target.value)
+                          this.handleChange(
+                            e.target.ariaLabel,
+                            parseFloat(e.target.value)
+                          );
+                      }}
+                    />
+                  </InputGroup>
+                </div>
+                <div className="Single">
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="angle">Angle</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="angle"
+                      defaultValue={this.props.layer.angle}
+                      onChange={(e) => {
+                        if (e.target.value)
+                          this.handleChange(
+                            e.target.ariaLabel,
+                            parseFloat(e.target.value)
+                          );
+                      }}
+                    />
+                  </InputGroup>
+                </div>
+                <SketchPicker
+                  color={this.props.layer.fill}
+                  onChangeComplete={this.handleChangeComplete}
+                />
+              </Form>
+            )}
           </div>
         ) : null}
       </div>
