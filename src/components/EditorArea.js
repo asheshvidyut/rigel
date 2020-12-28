@@ -23,7 +23,7 @@ class EditorArea extends Component {
     super(props);
     this.stageRef = React.createRef();
     this.layerRef = React.createRef();
-    this.stageHeight = 1000;
+    this.stageHeight = 2000;
     this.stageWidth = 2000;
     this.scaleBy = 1.01;
     this.state = {
@@ -131,17 +131,18 @@ class EditorArea extends Component {
   };
 
   getPreviewImage = () => {
+    this.stageRef.current.scale({ x: 1, y: 1 });
     this.props.setSelectedShape(-1);
     let layers = [...this.props.layers];
     let selectedLayers = layers.filter((layer) => layer.display);
     let position = this.fitLayersToStage(selectedLayers);
     let uri = this.stageRef.current.toDataURL({
       pixelRatio: 1,
-      quality: 1,
+      quality: 100000,
       x: position.x,
       y: position.y,
-      width: 2000,
-      height: 1000,
+      width: this.stageWidth,
+      height: this.stageHeight,
     });
     return uri;
   };
