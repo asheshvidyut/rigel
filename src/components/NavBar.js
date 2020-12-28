@@ -28,7 +28,7 @@ class NavBar extends Component {
   render() {
     return (
       <Navbar expand="md" bg="dark" variant="dark" fixed="top">
-        <Navbar.Brand href="https://www.designerfact.com">
+        <Navbar.Brand href="https://www.thedesignwine.com">
           The Design Wine
         </Navbar.Brand>
         <Nav>
