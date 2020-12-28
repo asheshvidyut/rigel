@@ -316,7 +316,7 @@ class EditorArea extends Component {
           onMouseDown={(e) => this.handleMouseDown(e)}
           onMouseMove={(e) => this.handleMouseMove(e)}
           onMouseUp={(e) => this.setState({ isDrawing: false })}
-          onWheel={this.handleWheel}
+          // onWheel={this.handleWheel}
           draggable={!this.props.selectedOperation}
           className="EditorArea"
         >
