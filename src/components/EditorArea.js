@@ -139,33 +139,38 @@ class EditorArea extends Component {
     this.stageRef.current.batchDraw();
   };
 
-  fitLayersToStage = (selectedLayers) => {
-    let chosenLayers = selectedLayers.filter((layer) => layer.display);
-    let startX = 0,
-      startY = 0;
-    for (let i = 0; i < chosenLayers.length; i++) {
-      startX = Math.min(startX, chosenLayers[i].x);
-      startY = Math.min(startY, chosenLayers[i].y);
+  fitLayersToStage = () => {
+    let nodes = this.layerRef.current.getChildren();
+    let MIN = -1e9;
+    let MAX = 1e9;
+    let minx = MAX;
+    let miny = MAX;
+    let maxx = MIN;
+    let maxy = MIN;
+    for (let i = 0; i < nodes.length; i++) {
+      let nodeX = nodes[i].x();
+      let nodeY = nodes[i].y();
+      let width = nodes[i].width();
+      let height = nodes[i].height();
+      minx = Math.min(minx, nodeX - width);
+      miny = Math.min(miny, nodeY - height);
+      maxx = Math.max(maxx, nodeX + width);
+      maxy = Math.max(maxy, nodeY + height);
     }
-    this.stageRef.current.position({ x: startX, y: startY });
-    this.stageRef.current.batchDraw();
-    return { x: startX, y: startY };
+    return { x: minx, y: miny, width: maxx - minx, height: maxy - miny };
   };
 
   getPreviewImage = () => {
     this.stageRef.current.scale({ x: 1, y: 1 });
-    this.stageRef.current.position({ x: 0, y: 0 });
     this.props.setSelectedShape(-1);
-    let layers = [...this.props.layers];
-    let selectedLayers = layers.filter((layer) => layer.display);
-    let position = this.fitLayersToStage(selectedLayers);
+    let position = this.fitLayersToStage();
     let uri = this.stageRef.current.toDataURL({
       pixelRatio: 1,
       quality: 100000,
       x: position.x,
       y: position.y,
-      width: this.stageWidth,
-      height: this.stageHeight,
+      width: position.width,
+      height: position.height,
     });
     return uri;
   };
