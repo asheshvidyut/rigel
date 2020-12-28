@@ -38,10 +38,8 @@ export const SHAPES_CONFIG = {
     scaleY: 1,
   },
   LINE: {
-    x: 50,
     stroke: "#000000",
     strokeWidth: 5,
-    y: 100,
     points: [0, 100, 100, 0],
     display: true,
     scaleX: 1,

@@ -37,17 +37,28 @@ class EditorArea extends Component {
     if (this.props.selectedOperation === SHAPES.PENCIL) {
       this.setState({ isDrawing: true });
       this.stageRef.current.scale({ x: 1, y: 1 });
-      this.stageRef.current.position({ x: 0, y: 0 });
+      this.stageRef.current.position({
+        x: this.stageRef.current.x(),
+        y: this.stageRef.current.y(),
+      });
       this.stageRef.current.batchDraw();
       const pos = e.target.getStage().getPointerPosition();
-      this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
+      this.props.addLine({
+        points: [
+          pos.x - this.stageRef.current.x(),
+          pos.y - this.stageRef.current.y(),
+        ],
+      });
     } else if (this.props.selectedOperation) {
       this.stageRef.current.scale({ x: 1, y: 1 });
-      this.stageRef.current.position({ x: 0, y: 0 });
+      this.stageRef.current.position({
+        x: this.stageRef.current.x(),
+        y: this.stageRef.current.y(),
+      });
       let pos = this.stageRef.current.getPointerPosition();
       this.props.addShape(this.props.selectedOperation, {
-        x: pos.x,
-        y: pos.y,
+        x: pos.x - this.stageRef.current.x(),
+        y: pos.y - this.stageRef.current.y(),
       });
       setTimeout(() => {
         this.props.setOperation(null);
@@ -58,15 +69,26 @@ class EditorArea extends Component {
   handleMouseMove = (e) => {
     if (this.props.selectedOperation === SHAPES.PENCIL) {
       if (!this.state.isDrawing) return;
-      const stage = e.target.getStage();
+      const stage = this.stageRef.current;
       const pos = stage.getPointerPosition();
       if (this.props.layers.length) {
         const lastLine = this.props.layers[this.props.layers.length - 1];
-        const newPoints = [...lastLine.points, pos.x, pos.y];
+        const newPoints = [
+          ...lastLine.points,
+          pos.x - this.stageRef.current.x(),
+          pos.y - this.stageRef.current.y(),
+        ];
         this.props.deleteShape(this.props.layers.length - 1);
-        this.props.addLine({ x: 0, y: 0, points: newPoints });
+        this.props.addLine({
+          points: newPoints,
+        });
       } else {
-        this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
+        this.props.addLine({
+          points: [
+            pos.x - this.stageRef.current.x(),
+            pos.y - this.stageRef.current.y(),
+          ],
+        });
       }
     }
   };
