@@ -155,14 +155,48 @@ class EditorArea extends Component {
     let maxx = MIN;
     let maxy = MIN;
     for (let i = 0; i < nodes.length; i++) {
-      let nodeX = nodes[i].absolutePosition().x;
-      let nodeY = nodes[i].absolutePosition().y;
-      let width = nodes[i].width();
-      let height = nodes[i].height();
-      minx = Math.min(minx, Math.min(nodeX + width, nodeX - width));
-      miny = Math.min(miny, Math.min(nodeY + height, nodeY - height));
-      maxx = Math.max(maxx, Math.max(nodeX - width, nodeX + width));
-      maxy = Math.max(maxy, Math.max(nodeY - height, nodeY + height));
+      if (nodes[i].className === "Line") {
+        let points = nodes[i].points();
+        for (let j = 0; j < points.length; j += 2) {
+          minx = Math.min(
+            minx,
+            Math.min(
+              points[j] - nodes[i].strokeWidth(),
+              points[j] + nodes[i].strokeWidth()
+            )
+          );
+          maxx = Math.max(
+            maxx,
+            Math.max(
+              points[j] - nodes[i].strokeWidth(),
+              points[j] + nodes[i].strokeWidth()
+            )
+          );
+          miny = Math.min(
+            miny,
+            Math.min(
+              points[j + 1] - nodes[i].strokeWidth(),
+              points[j + 1] + nodes[i].strokeWidth()
+            )
+          );
+          maxy = Math.max(
+            maxy,
+            Math.max(
+              points[j + 1] + nodes[i].strokeWidth(),
+              points[j + 1] - nodes[i].strokeWidth()
+            )
+          );
+        }
+      } else {
+        let nodeX = nodes[i].absolutePosition().x;
+        let nodeY = nodes[i].absolutePosition().y;
+        let width = nodes[i].width();
+        let height = nodes[i].height();
+        minx = Math.min(minx, Math.min(nodeX + width, nodeX - width));
+        miny = Math.min(miny, Math.min(nodeY + height, nodeY - height));
+        maxx = Math.max(maxx, Math.max(nodeX - width, nodeX + width));
+        maxy = Math.max(maxy, Math.max(nodeY - height, nodeY + height));
+      }
     }
     return {
       x: Math.min(minx, maxx),
