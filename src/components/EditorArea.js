@@ -36,7 +36,6 @@ class EditorArea extends Component {
   handleMouseDown = (e) => {
     if (this.props.selectedOperation === SHAPES.PENCIL) {
       this.setState({ isDrawing: true });
-      this.stageRef.current.scale({ x: 1, y: 1 });
       this.stageRef.current.position({
         x: this.stageRef.current.x(),
         y: this.stageRef.current.y(),
@@ -50,7 +49,6 @@ class EditorArea extends Component {
         ],
       });
     } else if (this.props.selectedOperation) {
-      this.stageRef.current.scale({ x: 1, y: 1 });
       this.stageRef.current.position({
         x: this.stageRef.current.x(),
         y: this.stageRef.current.y(),
@@ -120,31 +118,31 @@ class EditorArea extends Component {
       downloadURI(uri, "design.png");
     }, 100);
   };
-
-  handleWheel = (e) => {
-    // prevent parent scrolling
-    e.evt.preventDefault();
-    let oldScale = this.stageRef.current.scaleX();
-
-    let pointer = this.stageRef.current.getPointerPosition();
-
-    var mousePointTo = {
-      x: (pointer.x - this.stageRef.current.x()) / oldScale,
-      y: (pointer.y - this.stageRef.current.y()) / oldScale,
-    };
-
-    var newScale =
-      e.evt.deltaY > 0 ? oldScale * this.scaleBy : oldScale / this.scaleBy;
-
-    this.stageRef.current.scale({ x: newScale, y: newScale });
-
-    var newPos = {
-      x: pointer.x - mousePointTo.x * newScale,
-      y: pointer.y - mousePointTo.y * newScale,
-    };
-    this.stageRef.current.position(newPos);
-    this.stageRef.current.batchDraw();
-  };
+  //
+  // handleWheel = (e) => {
+  //   // prevent parent scrolling
+  //   e.evt.preventDefault();
+  //   let oldScale = this.stageRef.current.scaleX();
+  //
+  //   let pointer = this.stageRef.current.getPointerPosition();
+  //
+  //   var mousePointTo = {
+  //     x: (pointer.x - this.stageRef.current.x()) / oldScale,
+  //     y: (pointer.y - this.stageRef.current.y()) / oldScale,
+  //   };
+  //
+  //   var newScale =
+  //     e.evt.deltaY > 0 ? oldScale * this.scaleBy : oldScale / this.scaleBy;
+  //
+  //   this.stageRef.current.scale({ x: newScale, y: newScale });
+  //
+  //   var newPos = {
+  //     x: pointer.x - mousePointTo.x * newScale,
+  //     y: pointer.y - mousePointTo.y * newScale,
+  //   };
+  //   this.stageRef.current.position(newPos);
+  //   this.stageRef.current.batchDraw();
+  // };
 
   getDimension = () => {
     let nodes = this.layerRef.current.getChildren();
@@ -157,52 +155,17 @@ class EditorArea extends Component {
     let simpleMinx = MAX;
     let simpleMiny = MAX;
     for (let i = 0; i < nodes.length; i++) {
-      if (nodes[i].className === "Line") {
-        let points = nodes[i].points();
-        for (let j = 0; j < points.length; j += 2) {
-          simpleMinx = Math.min(simpleMinx, points[j]);
-          simpleMiny = Math.min(simpleMiny, points[j + 1]);
-          minx = Math.min(
-            minx,
-            Math.min(
-              points[j] - nodes[i].strokeWidth(),
-              points[j] + nodes[i].strokeWidth()
-            )
-          );
-          maxx = Math.max(
-            maxx,
-            Math.max(
-              points[j] - nodes[i].strokeWidth(),
-              points[j] + nodes[i].strokeWidth()
-            )
-          );
-          miny = Math.min(
-            miny,
-            Math.min(
-              points[j + 1] - nodes[i].strokeWidth(),
-              points[j + 1] + nodes[i].strokeWidth()
-            )
-          );
-          maxy = Math.max(
-            maxy,
-            Math.max(
-              points[j + 1] + nodes[i].strokeWidth(),
-              points[j + 1] - nodes[i].strokeWidth()
-            )
-          );
-        }
-      } else {
-        let nodeX = nodes[i].absolutePosition().x;
-        let nodeY = nodes[i].absolutePosition().y;
-        let width = nodes[i].width();
-        let height = nodes[i].height();
-        simpleMinx = Math.min(simpleMinx, nodeX);
-        simpleMiny = Math.min(simpleMiny, nodeY);
-        minx = Math.min(minx, Math.min(nodeX + width, nodeX - width));
-        miny = Math.min(miny, Math.min(nodeY + height, nodeY - height));
-        maxx = Math.max(maxx, Math.max(nodeX - width, nodeX + width));
-        maxy = Math.max(maxy, Math.max(nodeY - height, nodeY + height));
-      }
+      let dimensionData = nodes[i].getClientRect();
+      let nodeX = dimensionData.x;
+      let nodeY = dimensionData.y;
+      let width = dimensionData.width;
+      let height = dimensionData.height;
+      simpleMinx = Math.min(simpleMinx, nodeX);
+      simpleMiny = Math.min(simpleMiny, nodeY);
+      minx = Math.min(minx, Math.min(nodeX + width, nodeX - width));
+      miny = Math.min(miny, Math.min(nodeY + height, nodeY - height));
+      maxx = Math.max(maxx, Math.max(nodeX - width, nodeX + width));
+      maxy = Math.max(maxy, Math.max(nodeY - height, nodeY + height));
     }
     return {
       x: simpleMinx,
