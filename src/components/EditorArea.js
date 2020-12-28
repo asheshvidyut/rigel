@@ -95,6 +95,8 @@ class EditorArea extends Component {
 
   toggleExportModal = (val) => {
     this.props.setSelectedShape(-1);
+    this.stageRef.current.scale({ x: 1, y: 1 });
+    this.stageRef.current.batchDraw();
     setTimeout(() => {
       this.setState({ showExpModal: val });
       this.setState({ previewImage: this.getPreviewImage() });
@@ -102,16 +104,20 @@ class EditorArea extends Component {
   };
 
   handleExport = () => {
-    let uri = this.getPreviewImage();
-    function downloadURI(uri, name) {
-      var link = document.createElement("a");
-      link.download = name;
-      link.href = uri;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    downloadURI(uri, "design.png");
+    this.stageRef.current.scale({ x: 1, y: 1 });
+    this.stageRef.current.batchDraw();
+    setTimeout(() => {
+      let uri = this.getPreviewImage();
+      function downloadURI(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      downloadURI(uri, "design.png");
+    }, 100);
   };
 
   handleWheel = (e) => {
@@ -139,7 +145,7 @@ class EditorArea extends Component {
     this.stageRef.current.batchDraw();
   };
 
-  fitLayersToStage = () => {
+  getDimension = () => {
     let nodes = this.layerRef.current.getChildren();
     let MIN = -1e9;
     let MAX = 1e9;
@@ -152,18 +158,17 @@ class EditorArea extends Component {
       let nodeY = nodes[i].y();
       let width = nodes[i].width();
       let height = nodes[i].height();
-      minx = Math.min(minx, nodeX - width);
-      miny = Math.min(miny, nodeY - height);
-      maxx = Math.max(maxx, nodeX + width);
-      maxy = Math.max(maxy, nodeY + height);
+      minx = Math.min(minx, Math.min(nodeX + width, nodeX - width));
+      miny = Math.min(miny, Math.min(nodeY + height, nodeY - height));
+      maxx = Math.max(maxx, Math.max(nodeX - width, nodeX + width));
+      maxy = Math.max(maxy, Math.max(nodeY - height, nodeY + height));
     }
     return { x: minx, y: miny, width: maxx - minx, height: maxy - miny };
   };
 
   getPreviewImage = () => {
-    this.stageRef.current.scale({ x: 1, y: 1 });
     this.props.setSelectedShape(-1);
-    let position = this.fitLayersToStage();
+    let position = this.getDimension();
     let uri = this.stageRef.current.toDataURL({
       pixelRatio: 1,
       quality: 100000,
@@ -177,6 +182,8 @@ class EditorArea extends Component {
 
   handleCheckboxChange(e) {
     this.props.setSelectedShape(-1);
+    this.stageRef.current.scale({ x: 1, y: 1 });
+    this.stageRef.current.batchDraw();
     let target = e.target;
     let layerId = parseInt(target.name, 10);
     let layers = [...this.props.layers];
@@ -230,7 +237,7 @@ class EditorArea extends Component {
                   })}
                 </Form>
               </Col>
-              <Col md={10}>
+              <Col md={10} style={{ overflow: "scroll" }}>
                 <p>Preview</p>
                 <img alt="" src={this.state.previewImage} />
               </Col>
