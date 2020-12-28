@@ -94,18 +94,19 @@ class EditorArea extends Component {
   };
 
   toggleExportModal = (val) => {
-    this.props.setSelectedShape(-1);
-    this.stageRef.current.scale({ x: 1, y: 1 });
-    this.stageRef.current.batchDraw();
-    setTimeout(() => {
+    if (val) {
+      this.props.setSelectedShape(-1);
+      this.stageRef.current.position({ x: 0, y: 0 });
+      setTimeout(() => {
+        this.setState({ showExpModal: val });
+        this.setState({ previewImage: this.getPreviewImage() });
+      }, 100);
+    } else {
       this.setState({ showExpModal: val });
-      this.setState({ previewImage: this.getPreviewImage() });
-    }, 100);
+    }
   };
 
   handleExport = () => {
-    this.stageRef.current.scale({ x: 1, y: 1 });
-    this.stageRef.current.batchDraw();
     setTimeout(() => {
       let uri = this.getPreviewImage();
       function downloadURI(uri, name) {
@@ -154,8 +155,8 @@ class EditorArea extends Component {
     let maxx = MIN;
     let maxy = MIN;
     for (let i = 0; i < nodes.length; i++) {
-      let nodeX = nodes[i].x();
-      let nodeY = nodes[i].y();
+      let nodeX = nodes[i].absolutePosition().x;
+      let nodeY = nodes[i].absolutePosition().y;
       let width = nodes[i].width();
       let height = nodes[i].height();
       minx = Math.min(minx, Math.min(nodeX + width, nodeX - width));
@@ -163,7 +164,12 @@ class EditorArea extends Component {
       maxx = Math.max(maxx, Math.max(nodeX - width, nodeX + width));
       maxy = Math.max(maxy, Math.max(nodeY - height, nodeY + height));
     }
-    return { x: minx, y: miny, width: maxx - minx, height: maxy - miny };
+    return {
+      x: Math.min(minx, maxx),
+      y: Math.min(maxy, miny),
+      width: Math.abs(Math.max(minx, maxx) - Math.min(minx, maxx)),
+      height: Math.abs(Math.max(miny, maxy) - Math.min(miny, maxy)),
+    };
   };
 
   getPreviewImage = () => {
@@ -182,8 +188,7 @@ class EditorArea extends Component {
 
   handleCheckboxChange(e) {
     this.props.setSelectedShape(-1);
-    this.stageRef.current.scale({ x: 1, y: 1 });
-    this.stageRef.current.batchDraw();
+    this.stageRef.current.position({ x: 0, y: 0 });
     let target = e.target;
     let layerId = parseInt(target.name, 10);
     let layers = [...this.props.layers];
