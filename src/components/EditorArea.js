@@ -29,12 +29,13 @@ class EditorArea extends Component {
     this.state = {
       showExpModal: false,
       previewImage: null,
+      isDrawing: false,
     };
   }
 
   handleMouseDown = (e) => {
     if (this.props.selectedOperation === SHAPES.PENCIL) {
-      this.props.setIsDrawing(true);
+      this.setState({ isDrawing: true });
       this.stageRef.current.scale({ x: 1, y: 1 });
       this.stageRef.current.position({ x: 0, y: 0 });
       this.stageRef.current.batchDraw();
@@ -51,6 +52,22 @@ class EditorArea extends Component {
       setTimeout(() => {
         this.props.setOperation(null);
       }, 500);
+    }
+  };
+
+  handleMouseMove = (e) => {
+    if (this.props.selectedOperation === SHAPES.PENCIL) {
+      if (!this.state.isDrawing) return;
+      const stage = e.target.getStage();
+      const pos = stage.getPointerPosition();
+      if (this.props.layers.length) {
+        const lastLine = this.props.layers[this.props.layers.length - 1];
+        const newPoints = [...lastLine.points, pos.x, pos.y];
+        this.props.deleteShape(this.props.layers.length - 1);
+        this.props.addLine({ x: 0, y: 0, points: newPoints });
+      } else {
+        this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
+      }
     }
   };
 
@@ -73,22 +90,6 @@ class EditorArea extends Component {
       document.body.removeChild(link);
     }
     downloadURI(uri, "design.png");
-  };
-
-  handleMouseMove = (e) => {
-    if (this.props.selectedOperation === SHAPES.PENCIL) {
-      if (!this.props.isDrawing) return;
-      const stage = e.target.getStage();
-      const pos = stage.getPointerPosition();
-      if (this.props.layers.length) {
-        const lastLine = this.props.layers[this.props.layers.length - 1];
-        const newPoints = [...lastLine.points, pos.x, pos.y];
-        this.props.deleteShape(this.props.layers.length - 1);
-        this.props.addLine({ x: 0, y: 0, points: newPoints });
-      } else {
-        this.props.addLine({ x: 0, y: 0, points: [pos.x, pos.y] });
-      }
-    }
   };
 
   handleWheel = (e) => {
@@ -233,7 +234,7 @@ class EditorArea extends Component {
           scaleY={this.props.stageScale}
           onMouseDown={(e) => this.handleMouseDown(e)}
           onMouseMove={(e) => this.handleMouseMove(e)}
-          onMouseUp={(e) => this.props.setIsDrawing(false)}
+          onMouseUp={(e) => this.setState({ isDrawing: false })}
           onWheel={this.handleWheel}
           draggable={!this.props.selectedOperation}
           className="EditorArea"
@@ -289,6 +290,7 @@ class EditorArea extends Component {
                         }
                         setSelectedShape={this.props.setSelectedShape}
                         toggleHover={this.props.toggleHover}
+                        isDrawing={this.state.isDrawing}
                       />
                     );
                   case SHAPES.ARROW:
@@ -461,12 +463,6 @@ const mapDispatchToProps = (dispatch) => {
         type: editorActionTypes.DELETE_SHAPE,
         shapeId: shapeId,
       }),
-    setIsDrawing: (val) => {
-      dispatch({
-        type: editorActionTypes.SET_IS_DRAWING,
-        val: val,
-      });
-    },
     setEditorScale: (val) => {
       dispatch({
         type: editorActionTypes.SET_EDITOR_SCALE,

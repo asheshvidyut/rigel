@@ -8,6 +8,7 @@ let RLine = ({
   onChange,
   setSelectedShape,
   toggleHover,
+  isDrawing,
 }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
@@ -34,7 +35,7 @@ let RLine = ({
         {...shapeProps}
         draggable
         onDblClick={() => {
-          setSelectedShape(shapeProps.id);
+          if (!isDrawing) setSelectedShape(shapeProps.id);
         }}
         onMouseEnter={() => {
           setShadowBlur(10);

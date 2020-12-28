@@ -41,8 +41,6 @@ export default function editor(state = {}, action) {
       let stateClone = [...state.layers];
       stateClone.splice(action.shapeId, 1, action.newAttrs);
       return { ...state, layers: stateClone };
-    case actionTypes.DISABLE_HOVER:
-      return { ...state, isDrawing: action.val };
     case actionTypes.SET_OPERATION:
       return { ...state, selectedOperation: action.val };
     case actionTypes.SET_EDITOR_SCALE:
