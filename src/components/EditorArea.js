@@ -43,10 +43,10 @@ class EditorArea extends Component {
     } else if (this.props.selectedOperation) {
       this.stageRef.current.scale({ x: 1, y: 1 });
       this.stageRef.current.position({ x: 0, y: 0 });
-      let pointerPosition = this.stageRef.current.getPointerPosition();
+      let pos = this.stageRef.current.getPointerPosition();
       this.props.addShape(this.props.selectedOperation, {
-        x: pointerPosition.x,
-        y: pointerPosition.y,
+        x: pos.x,
+        y: pos.y,
       });
       setTimeout(() => {
         this.props.setOperation(null);
