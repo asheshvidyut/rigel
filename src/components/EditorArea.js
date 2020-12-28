@@ -131,7 +131,8 @@ class EditorArea extends Component {
   };
 
   getPreviewImage = () => {
-    this.stageRef.current.scale({ x: 1, y: 1 });
+    this.stageRef.current.scale(1);
+    this.stageRef.current.position({ x: 0, y: 0 });
     this.props.setSelectedShape(-1);
     let layers = [...this.props.layers];
     let selectedLayers = layers.filter((layer) => layer.display);
