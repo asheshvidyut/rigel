@@ -245,7 +245,14 @@ class EditorArea extends Component {
                   })}
                 </Form>
               </Col>
-              <Col md={10} style={{ overflow: "scroll" }}>
+              <Col
+                md={10}
+                style={{
+                  overflow: "scroll",
+                  backgroundColor: "gray",
+                  textAlign: "center",
+                }}
+              >
                 <p>Preview</p>
                 <img alt="" src={this.state.previewImage} />
               </Col>
