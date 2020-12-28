@@ -154,10 +154,14 @@ class EditorArea extends Component {
     let miny = MAX;
     let maxx = MIN;
     let maxy = MIN;
+    let simpleMinx = MAX;
+    let simpleMiny = MAX;
     for (let i = 0; i < nodes.length; i++) {
       if (nodes[i].className === "Line") {
         let points = nodes[i].points();
         for (let j = 0; j < points.length; j += 2) {
+          simpleMinx = Math.min(simpleMinx, points[j]);
+          simpleMiny = Math.min(simpleMiny, points[j + 1]);
           minx = Math.min(
             minx,
             Math.min(
@@ -192,6 +196,8 @@ class EditorArea extends Component {
         let nodeY = nodes[i].absolutePosition().y;
         let width = nodes[i].width();
         let height = nodes[i].height();
+        simpleMinx = Math.min(simpleMinx, nodeX);
+        simpleMiny = Math.min(simpleMiny, nodeY);
         minx = Math.min(minx, Math.min(nodeX + width, nodeX - width));
         miny = Math.min(miny, Math.min(nodeY + height, nodeY - height));
         maxx = Math.max(maxx, Math.max(nodeX - width, nodeX + width));
@@ -199,8 +205,8 @@ class EditorArea extends Component {
       }
     }
     return {
-      x: Math.min(minx, maxx),
-      y: Math.min(maxy, miny),
+      x: simpleMinx,
+      y: simpleMiny,
       width: Math.abs(Math.max(minx, maxx) - Math.min(minx, maxx)),
       height: Math.abs(Math.max(miny, maxy) - Math.min(miny, maxy)),
     };
