@@ -207,8 +207,8 @@ class EditorArea extends Component {
     return {
       x: simpleMinx,
       y: simpleMiny,
-      width: Math.abs(Math.max(minx, maxx) - Math.min(minx, maxx)),
-      height: Math.abs(Math.max(miny, maxy) - Math.min(miny, maxy)),
+      width: Math.max(minx, maxx) - simpleMinx,
+      height: Math.max(miny, maxy) - simpleMiny,
     };
   };
 
