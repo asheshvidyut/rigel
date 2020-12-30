@@ -58,6 +58,17 @@ export default function editor(state = {}, action) {
           return layer;
         }),
       };
+    case actionTypes.PUT_TO_BOTTOM:
+      let layersCln = [...state.layers];
+      let selectedLyr = layersCln.splice(action.shapeId, 1)[0];
+      layersCln.unshift(selectedLyr);
+      return {
+        ...state,
+        layers: layersCln.map((layer, index) => {
+          layer.id = index;
+          return layer;
+        }),
+      };
     default:
       return state;
   }

@@ -8,6 +8,7 @@ import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
   AiOutlineToTop,
+  AiOutlineVerticalAlignBottom,
   RiDeleteBin6Line,
 } from "react-icons/all";
 
@@ -30,8 +31,13 @@ class LeftPanel extends Component {
                   <span>{shape.displayName || shape.type}</span>
                   <div className="LayerActions">
                     <span>
-                      <AiOutlineToTop
+                      <AiOutlineVerticalAlignBottom
                         onClick={() => this.props.putToTop(shape.id)}
+                      />
+                    </span>
+                    <span>
+                      <AiOutlineToTop
+                        onClick={() => this.props.putToBottom(shape.id)}
                       />
                     </span>
                     <span>
@@ -105,6 +111,12 @@ const mapDispatchToProps = (dispatch) => {
     putToTop: (shapeId) => {
       dispatch({
         type: editorActionTypes.PUT_TO_TOP,
+        shapeId: shapeId,
+      });
+    },
+    putToBottom: (shapeId) => {
+      dispatch({
+        type: editorActionTypes.PUT_TO_BOTTOM,
         shapeId: shapeId,
       });
     },

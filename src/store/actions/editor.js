@@ -7,4 +7,5 @@ export const DISABLE_HOVER = "DISABLE_HOVER";
 export const SET_OPERATION = "SET_OPERATION";
 export const SET_EDITOR_SCALE = "SET_EDITOR_SCALE";
 export const PUT_TO_TOP = "PUT_TO_TOP";
+export const PUT_TO_BOTTOM = "PUT_TO_BOTTOM";
 export const SET_LAYERS = "SET_LAYERS";
