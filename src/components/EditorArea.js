@@ -224,6 +224,7 @@ class EditorArea extends Component {
                 onClick={() => {
                   this.handleExport();
                 }}
+                variant="success"
               >
                 Export Selected Layers
               </Button>
@@ -268,7 +269,7 @@ class EditorArea extends Component {
             right: 0,
             top: 5,
           }}
-          variant="success"
+          variant="info"
           onClick={() => this.toggleExportModal(true)}
         >
           Export
