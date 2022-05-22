@@ -39,6 +39,10 @@
       "not dead",
       "not op_mini all"
     ],
+    "engines" : {
+      "npm" : ">=7.0.0",
+      "node" : ">=14.0.0"
+    },
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
