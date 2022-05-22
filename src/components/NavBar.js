@@ -29,7 +29,7 @@ class NavBar extends Component {
     return (
       <Navbar expand="md" bg="dark" variant="dark" fixed="top">
         <Navbar.Brand href="https://www.thedesignwine.com">
-          The Design Wine
+          The Rigel
         </Navbar.Brand>
         <Nav>
           <NavDropdown title="Phones" id="collasible-nav-dropdown">
