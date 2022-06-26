@@ -28,7 +28,7 @@ class NavBar extends Component {
   render() {
     return (
       <Navbar expand="md" bg="dark" variant="dark" fixed="top">
-        <Navbar.Brand href="https://www.thedesignwine.com">
+        <Navbar.Brand href="https://www.asheshvidyut.in">
           The Rigel
         </Navbar.Brand>
         <Nav>
